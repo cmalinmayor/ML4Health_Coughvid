@@ -17,6 +17,7 @@ class CoughvidDataset(Dataset):
                  data_dir,
                  csv_file='metadata_compiled.csv', 
                  filter_data=True, 
+                 get_features=True,
                  sample_rate=48000, 
                  frame_length=1024, 
                  frames=100):
@@ -46,7 +47,8 @@ class CoughvidDataset(Dataset):
         # set frame parameters and MFCC module
         self.frame_length = frame_length
         self.frames       = frames
-        self.sample_rate = sample_rate
+        self.sample_rate  = sample_rate
+        self.get_features = get_features
 
         self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=20, melkwargs={"n_fft": 2048, "hop_length": 512, "power": 2})
         #torch_mfcc = mfcc_module(torch.tensor(audio))
@@ -65,9 +67,21 @@ class CoughvidDataset(Dataset):
         audio = np.array(audio.get_array_of_samples(), dtype='int64')
         labels = np.array(entry[self.labels], dtype=np.float32)
 
+        # return raw audio and labels unless self.get_features
+        if not self.get_features: return audio, labels
+
+        audio = self.normalize_audio(audio)
+        # segmented array
+        mask = 1 # placeholder
+        masked_audio = np.ma.masked_array(audio,1-mask) # 0 is uncensored, 1 is censored
+
+        frames = self.extract_frames(masked_audio)
+
+        features = [self.extract_features(frame) for frame in frames]
+
+        return features, labels
 
 
-        return audio, labels
 
     def __len__(self):
         return self.dataframe.shape[0]
@@ -99,15 +113,22 @@ class CoughvidDataset(Dataset):
         return np.log2(np.sum(np.power(frame,2)))
 
     def mfcc_velocity(self,mfccs):
-        pass
+        return None
 
     def mfcc_acceleration(self,mfccs):
-        pass
+        return None
 
-    ### FUNCTIONS FOR FRAME EXTRACTION ###
-    def frame_skip(self,audio):
-        return np.ceil(len(audio)*1.0/self.frames)
+    def extract_frames(self,masked_audio):
+        '''Extract self.frames number of frames of self.frame_length length.
+        '''
+        frame_skip = np.ceil(len(masked_audio)*1.0/self.frames)
+        valid_samples = masked_audio.compressed()
 
-    def frame_extract(self,audio,mask):
-        pass
+        return [[valid_samples[i:i+self.frame_length]] for i in np.arange(0,len(valid_samples),frame_skip)]
 
+    def extract_features(self,frame):
+        '''Extract mel-cepstral coefficients, their acceleration, their velocity,
+        frame kurtosis, frame log energy and frame zero-crossing rate.
+        '''
+        mfccs = self.mfcc(frame)
+        return [mfccs, mfcc_velocity(mfccs), mfcc_acceleration(mfccs), kurtosis(frame), self.log_energy(frame), self.zcr(frame)]
