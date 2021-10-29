@@ -2,28 +2,31 @@ import time
 from .coughvid_dataset import CoughvidDataset
 from torch.utils.data import DataLoader
 
-PATH_TO_DATASET = "D:\COUGHVID_public_dataset\public_dataset"
+PATH_TO_DATASET = "C:\COUGHVID_public_dataset\public_dataset"
 
 
 class TestCoughvidDataset:
 
+    def __init__(self,dataset=None):
+        self.dataset = dataset if dataset is not None else CoughvidDataset(PATH_TO_DATASET, 'metadata_compiled.csv')
+
     def test_simple(self):
-        dataset = CoughvidDataset(PATH_TO_DATASET, 'metadata_compiled.csv')
+        dataset = self.dataset
         print(len(dataset))
         entry, audio = dataset[0]
         print(entry)
         print(audio.shape)
 
     def test_data_loader(self):
-        num_batches = 1000
+        num_batches = 100
         batch_size = 1
-        num_workers = 1
-        dataset = CoughvidDataset(PATH_TO_DATASET, 'metadata_compiled.csv')
-        dataloader = DataLoader(dataset, num_workers=num_workers, batch_size=batch_size)
+        num_workers = 8
+        #dataset = CoughvidDataset(PATH_TO_DATASET, 'metadata_compiled.csv')
+        dataloader = DataLoader(self.dataset, num_workers=num_workers, batch_size=batch_size)
         time_start = time.time()
         current_batch = 0
         for audio, labels in dataloader:
-            print(f'Batch {current_batch} has audio shape {audio.shape} and label shape {labels.shape}')
+            #print(f'Batch {current_batch} has audio shape {len(audio)} and label shape {len(labels)}')
             current_batch += 1
             if current_batch > num_batches:
                 break

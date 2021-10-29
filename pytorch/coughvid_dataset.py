@@ -1,3 +1,4 @@
+import torch
 from torch.utils.data import Dataset
 from torchaudio.transforms import MFCC
 import leaf_audio_pytorch.frontend as frontend
@@ -50,7 +51,7 @@ class CoughvidDataset(Dataset):
         self.sample_rate  = sample_rate
         self.get_features = get_features
 
-        self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=20, melkwargs={"n_fft": 2048, "hop_length": 512, "power": 2})
+        self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=20, melkwargs={'n_mels':39,'center':False,"n_fft": 400, "power": 2})
         #torch_mfcc = mfcc_module(torch.tensor(audio))
 
     def __getitem__(self, index):
@@ -76,6 +77,7 @@ class CoughvidDataset(Dataset):
         masked_audio = np.ma.masked_array(audio,1-mask) # 0 is uncensored, 1 is censored
 
         frames = self.extract_frames(masked_audio)
+
 
         features = [self.extract_features(frame) for frame in frames]
 
@@ -113,10 +115,10 @@ class CoughvidDataset(Dataset):
         return np.log2(np.sum(np.power(frame,2)))
 
     def mfcc_velocity(self,mfccs):
-        return None
+        return -1
 
     def mfcc_acceleration(self,mfccs):
-        return None
+        return -1
 
     def extract_frames(self,masked_audio):
         '''Extract self.frames number of frames of self.frame_length length.
@@ -124,11 +126,15 @@ class CoughvidDataset(Dataset):
         frame_skip = np.ceil(len(masked_audio)*1.0/self.frames)
         valid_samples = masked_audio.compressed()
 
-        return [[valid_samples[i:i+self.frame_length]] for i in np.arange(0,len(valid_samples),frame_skip)]
+        return [valid_samples[int(i):int(i+self.frame_length)] for i in np.arange(0,len(valid_samples),frame_skip)]
 
     def extract_features(self,frame):
         '''Extract mel-cepstral coefficients, their acceleration, their velocity,
         frame kurtosis, frame log energy and frame zero-crossing rate.
         '''
-        mfccs = self.mfcc(frame)
-        return [mfccs, mfcc_velocity(mfccs), mfcc_acceleration(mfccs), kurtosis(frame), self.log_energy(frame), self.zcr(frame)]
+        frame = np.array(frame)
+        #assert frame.shape == (self.frame_length,1), f'Unexpected shape: {frame.shape}'
+        tframe = torch.from_numpy(frame)
+        tframe = tframe.type(torch.FloatTensor)
+        mfccs = self.mfcc(tframe)
+        return [mfccs, self.mfcc_velocity(mfccs), self.mfcc_acceleration(mfccs), kurtosis(frame), self.log_energy(frame), self.zcr(frame)]
