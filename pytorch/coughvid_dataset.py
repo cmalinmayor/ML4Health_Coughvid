@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 class CoughvidDataset(Dataset):
     def __init__(self,
                  data_dir,
+                 mask_dir,
                  csv_file='metadata_compiled.csv', 
                  filter_data=True, 
                  get_features=True,
@@ -33,6 +34,11 @@ class CoughvidDataset(Dataset):
         self.__convert_to_numeric__(self.dataframe)
         self.audio_extensions = ['.webm', '.ogg']
         self.labels = ['cough_detected']#, 'SNR', 'status', 'age']# , 'respiratory_condition', 'gender']
+        
+        #load mask arrays
+        assert os.path.isfile(mask_dir), f'Mask file {mask_dir} does not exist.'
+        self.mask_dir = mask_dir
+        self.mask_array = np.load(mask_dir, allow_pickle = True)
 
 
         # get only records that have a COVID status label and a cough-detected above 0.8. Loading all the files takes too long
@@ -73,7 +79,7 @@ class CoughvidDataset(Dataset):
 
         audio = self.normalize_audio(audio)
         # segmented array
-        mask = 1 # placeholder
+        mask = self.mask_array[index] # placeholder
         masked_audio = np.ma.masked_array(audio,1-mask) # 0 is uncensored, 1 is censored
 
         frames = self.extract_frames(masked_audio)
