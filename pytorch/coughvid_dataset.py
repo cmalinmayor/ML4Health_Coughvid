@@ -90,12 +90,14 @@ class CoughvidDataset(Dataset):
         # segmented array
         mask = self.mask_array[index] if self.mask_array else segment_cough(audio,self.sample_rate)[1]
 
+
+
         masked_audio = np.ma.masked_array(audio,1-mask) # 0 is uncensored, 1 is censored
 
         frames = self.extract_frames(masked_audio)
         features = [self.extract_features(frame) for frame in frames]
 
-        return features, labels
+        return np.array(features), labels
 
 
 
@@ -137,18 +139,47 @@ class CoughvidDataset(Dataset):
     def extract_frames(self,masked_audio):
         '''Extract self.frames number of frames of self.frame_length length.
         '''
-        frame_skip = np.ceil(len(masked_audio)*1.0/self.frames)
         valid_samples = masked_audio.compressed()
 
-        return [valid_samples[int(i):int(i+self.frame_length)] for i in np.arange(0,len(valid_samples),frame_skip)]
+        if not len(valid_samples) >= self.frame_length * self.frames: print( f'WARNING: {len(valid_samples)} frames found, need at least {self.frame_length * self.frames}' )
+
+        frame_skip = int(np.ceil(len(valid_samples)*1.0/self.frames))
+
+        #assert frame_skip > 0
+
+        frames = []
+
+        for i in np.linspace(0,len(valid_samples)-1,self.frames,endpoint=False):
+            frame = valid_samples[int(i):int(i+self.frame_length)]
+
+            if len(frame) != self.frame_length:
+                print(f'WARNING: Unexpected frame length encountered at {int(i)} of {len(valid_samples)}: {len(frame)}')
+                frame = np.pad(frame, (0, self.frame_length-len(frame)), 'constant')
+
+                assert len(frame) == self.frame_length
+
+            frames += [frame]
+
+        assert len(frames) == self.frames, f'Only {len(frames)} frames extracted, need {self.frames}.'
+
+        return frames
 
     def extract_features(self,frame):
         '''Extract mel-cepstral coefficients, their acceleration, their velocity,
         frame kurtosis, frame log energy and frame zero-crossing rate.
         '''
         frame = np.array(frame)
-        #assert frame.shape == (self.frame_length,1), f'Unexpected shape: {frame.shape}'
+
+        assert frame.shape == (self.frame_length,), f'Unexpected shape: {frame.shape}'
+
         tframe = torch.from_numpy(frame)
         tframe = tframe.type(torch.FloatTensor)
         mfccs = self.mfcc(tframe)
-        return mfccs.tolist() + [self.mfcc_velocity(mfccs), self.mfcc_acceleration(mfccs), kurtosis(frame), self.log_energy(frame), self.zcr(frame)]
+        #
+        features =  mfccs.flatten().tolist() + [self.mfcc_velocity(mfccs), self.mfcc_acceleration(mfccs), kurtosis(frame), self.log_energy(frame), self.zcr(frame)]
+
+        #features = np.ndarray.flatten(np.array(features, dtype='double'))
+
+        #assert features.shape == (5,), f'Abnormal feature array shape: {features.shape}, expected (25,).'
+
+        return features
