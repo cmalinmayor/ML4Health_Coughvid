@@ -2,8 +2,9 @@ import torch
 from torch.utils.data import Dataset
 from torchaudio.transforms import MFCC
 import leaf_audio_pytorch.frontend as frontend
+from segmentation import segment_cough
 
-import pandas
+import pandas as pd
 import os
 import pydub
 import numpy as np
@@ -16,13 +17,14 @@ logger = logging.getLogger(__name__)
 class CoughvidDataset(Dataset):
     def __init__(self,
                  data_dir,
-                 mask_dir,
                  csv_file='metadata_compiled.csv', 
+                 mask_loc=None,
                  filter_data=True, 
                  get_features=True,
                  sample_rate=48000, 
                  frame_length=1024, 
-                 frames=100):
+                 frames=100,
+                 samples_per_class=None):
 
         # load dataframe
         assert os.path.isdir(data_dir), f'Data directory {data_dir} does not exist.'
@@ -30,26 +32,33 @@ class CoughvidDataset(Dataset):
         csv_path = os.path.join(data_dir, csv_file)
         assert os.path.isfile(csv_path), f'CSV file {csv_path} does not exist.'
         with open(csv_path, 'r') as f:
-            self.dataframe = pandas.read_csv(f)
+            self.dataframe = pd.read_csv(f)
         self.__convert_to_numeric__(self.dataframe)
         self.audio_extensions = ['.webm', '.ogg']
         self.labels = ['cough_detected']#, 'SNR', 'status', 'age']# , 'respiratory_condition', 'gender']
         
         #load mask arrays
-        assert os.path.isfile(mask_dir), f'Mask file {mask_dir} does not exist.'
-        self.mask_dir = mask_dir
-        self.mask_array = np.load(mask_dir, allow_pickle = True)
+        self.mask_loc = mask_loc if mask_loc else data_dir
+        #assert os.path.isfile(self.mask_loc), f'Mask file {self.mask_loc} does not exist. Calculating masks on the fly.'
+        self.mask_array = np.load(mask_loc, allow_pickle = True) if os.path.isfile(self.mask_loc) else None
+        if not self.mask_array: print(f'Mask file {self.mask_loc} does not exist. Calculating masks on the fly.')
 
 
         # get only records that have a COVID status label and a cough-detected above 0.8. Loading all the files takes too long
         assert filter_data, f'WARNING: All {len(self)} records have been selected for loading.'
         if filter_data:
-            status = np.isin(self.dataframe['status'],[0,1,2])#['healthy','symptomatic','COVID-19'])
+            status_groups = [0,2]
+            status = np.isin(self.dataframe['status'],status_groups)#['healthy','symptomatic','COVID-19'])
             cough_detected = self.dataframe['cough_detected'] > 0.8 # recommended threshold from https://www.nature.com/articles/s41597-021-00937-4
 
             self.dataframe = self.dataframe[ np.logical_and(status,cough_detected) ]
 
-            print(f'{len(self)} records ready to load.')
+            # obtain at least samples_per_class per class
+            if samples_per_class:
+                samples = [self.dataframe[self.dataframe['status'] == i].head(samples_per_class) for i in status_groups]
+                self.dataframe = pd.concat(samples)
+
+            print(f'{len(self)} records ready to load across {len(status_groups)} groups.')
 
         # set frame parameters and MFCC module
         self.frame_length = frame_length
@@ -57,7 +66,7 @@ class CoughvidDataset(Dataset):
         self.sample_rate  = sample_rate
         self.get_features = get_features
 
-        self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=20, melkwargs={'n_mels':39,'center':False,"n_fft": 400, "power": 2})
+        self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=20, melkwargs={'center':False, "power": 2}) #'n_mels':39,"n_fft": 200,
         #torch_mfcc = mfcc_module(torch.tensor(audio))
 
     def __getitem__(self, index):
@@ -72,19 +81,18 @@ class CoughvidDataset(Dataset):
                 break
         assert audio is not None, f"No audio found with uuid {uuid}"
         audio = np.array(audio.get_array_of_samples(), dtype='int64')
-        labels = np.array(entry[self.labels], dtype=np.float32)
+        labels = torch.IntTensor(entry[self.labels])[0]
 
         # return raw audio and labels unless self.get_features
         if not self.get_features: return audio, labels
 
         audio = self.normalize_audio(audio)
         # segmented array
-        mask = self.mask_array[index] # placeholder
+        mask = self.mask_array[index] if self.mask_array else segment_cough(audio,self.sample_rate)[1]
+
         masked_audio = np.ma.masked_array(audio,1-mask) # 0 is uncensored, 1 is censored
 
         frames = self.extract_frames(masked_audio)
-
-
         features = [self.extract_features(frame) for frame in frames]
 
         return features, labels
@@ -112,7 +120,7 @@ class CoughvidDataset(Dataset):
         '''Calculate the number of times the signal passes through zero,
         a.k.a. the zero-crossing rate.
         '''
-        zero_crosses = np.nonzero(np.diff(frame > 0))[0]
+        zero_crosses = len(np.nonzero(np.diff(frame > 0))[0])
         return zero_crosses
 
     def log_energy(self,frame):
@@ -143,4 +151,4 @@ class CoughvidDataset(Dataset):
         tframe = torch.from_numpy(frame)
         tframe = tframe.type(torch.FloatTensor)
         mfccs = self.mfcc(tframe)
-        return [mfccs, self.mfcc_velocity(mfccs), self.mfcc_acceleration(mfccs), kurtosis(frame), self.log_energy(frame), self.zcr(frame)]
+        return mfccs.tolist() + [self.mfcc_velocity(mfccs), self.mfcc_acceleration(mfccs), kurtosis(frame), self.log_energy(frame), self.zcr(frame)]
