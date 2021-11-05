@@ -23,7 +23,7 @@ class CoughvidDataset(Dataset):
                  get_features=True,
                  sample_rate=48000, 
                  frame_length=1024, 
-                 frames=100,
+                 frames=50,
                  samples_per_class=None):
 
         # load dataframe
@@ -66,7 +66,7 @@ class CoughvidDataset(Dataset):
         self.sample_rate  = sample_rate
         self.get_features = get_features
 
-        self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=20, melkwargs={'center':False, "power": 2}) #'n_mels':39,"n_fft": 200,
+        self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=39, melkwargs={'center':True, "power": 2,'n_fft':512}) #'n_mels':39,"n_fft": 200,
         #torch_mfcc = mfcc_module(torch.tensor(audio))
 
     def __getitem__(self, index):
@@ -93,6 +93,13 @@ class CoughvidDataset(Dataset):
 
 
         masked_audio = np.ma.masked_array(audio,1-mask) # 0 is uncensored, 1 is censored
+
+        if len(masked_audio.compressed()) < self.frame_length:
+            print (f'Skipping sample {uuid} as it only contains {len(masked_audio.compressed())} frames.')
+            if index < len(self):
+                return self.__getitem__(index+1)
+            else:
+                return self.__getitem__(index-1)
 
         frames = self.extract_frames(masked_audio)
         features = [self.extract_features(frame) for frame in frames]
@@ -128,7 +135,7 @@ class CoughvidDataset(Dataset):
     def log_energy(self,frame):
         '''Calculate the log energy of the audio signal.
         '''
-        return np.log2(np.sum(np.power(frame,2)))
+        return np.log2(max(1,np.sum(np.power(frame,2))))
 
     def mfcc_velocity(self,mfccs):
         return -1
@@ -153,10 +160,11 @@ class CoughvidDataset(Dataset):
             frame = valid_samples[int(i):int(i+self.frame_length)]
 
             if len(frame) != self.frame_length:
-                print(f'WARNING: Unexpected frame length encountered at {int(i)} of {len(valid_samples)}: {len(frame)}')
-                frame = np.pad(frame, (0, self.frame_length-len(frame)), 'constant')
+                print(f'WARNING: Unexpected frame length encountered at {int(i)} of {len(valid_samples)}: {len(frame)}. Padding {self.frame_length-len(frame)} frames.')
 
-                assert len(frame) == self.frame_length
+                frame = np.pad(frame, (0, max(0,self.frame_length-len(frame))), 'constant')
+
+                #assert len(frame) == self.frame_length
 
             frames += [frame]
 
@@ -170,7 +178,7 @@ class CoughvidDataset(Dataset):
         '''
         frame = np.array(frame)
 
-        assert frame.shape == (self.frame_length,), f'Unexpected shape: {frame.shape}'
+        #assert frame.shape == (self.frame_length,), f'Unexpected shape: {frame.shape}'
 
         tframe = torch.from_numpy(frame)
         tframe = tframe.type(torch.FloatTensor)
