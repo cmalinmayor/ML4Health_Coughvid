@@ -3,6 +3,7 @@ from torch.utils.data import Dataset
 from torchaudio.transforms import MFCC
 import leaf_audio_pytorch.frontend as frontend
 from segmentation import segment_cough
+#import librosa  
 
 import pandas as pd
 import os
@@ -70,7 +71,7 @@ class CoughvidDataset(Dataset):
         n_fft = 512
         frame_length = n_fft / self.sample_rate * 1000.0
         frame_shift = frame_length / 2.0
-        self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=39, melkwargs={'center':True, "power": 2,'n_fft':n_fft,'n_mels':40}) #'n_mels':39,"n_fft": 200,
+        self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=39, melkwargs={'center':True, "power": 2,'n_fft':n_fft,'n_mels':80}) #'n_mels':39,"n_fft": 200,
         #torch_mfcc = mfcc_module(torch.tensor(audio))
 
     def __getitem__(self, index):
@@ -86,16 +87,13 @@ class CoughvidDataset(Dataset):
         assert audio is not None, f"No audio found with uuid {uuid}"
         audio = np.array(audio.get_array_of_samples(), dtype='int64')
         labels = torch.IntTensor(entry[self.labels])[0]
+        audio = self.normalize_audio(audio)
 
         # return raw audio and labels unless self.get_features
         if not self.get_features: return audio, labels
 
-        audio = self.normalize_audio(audio)
         # segmented array
         mask = self.mask_array[index] if self.mask_array else segment_cough(audio,self.sample_rate)[1]
-
-
-
         masked_audio = np.ma.masked_array(audio,1-mask) # 0 is uncensored, 1 is censored
 
         if len(masked_audio.compressed()) < self.frame_length:
@@ -106,18 +104,15 @@ class CoughvidDataset(Dataset):
                 return self.__getitem__(index-1)
 
         frames = self.extract_frames(masked_audio)
-        other_features = np.array([self.extract_features(frame) for frame in frames])
+        other_features = np.array([self.extract_other_features(frame) for frame in frames])
 
-        mels = [self.mfcc(torch.from_numpy(np.array(frame)).type(torch.FloatTensor)).flatten().tolist() for frame in frames]
-        mel_d= self.mfcc_delta(np.array(mels).T,2)
+        mels = [self.mfcc(torch.from_numpy(frame).type(torch.FloatTensor)).flatten().tolist()[:39] for frame in frames]
+        mel_d= self.mfcc_delta(np.array(mels),2)
         mel_dd = self.mfcc_delta(mel_d,2)
 
-
-        features = np.concatenate((mels,mel_d.T,mel_dd.T,other_features),axis=1)
+        features = np.concatenate((mels,mel_d,mel_dd,other_features),axis=1)
 
         return features, labels
-
-
 
     def __len__(self):
         return self.dataframe.shape[0]
@@ -192,22 +187,11 @@ class CoughvidDataset(Dataset):
 
         assert len(frames) == self.frames, f'Only {len(frames)} frames extracted, need {self.frames}.'
 
-        return frames
+        return np.array(frames)
 
-    def extract_features(self,frame):
+    def extract_other_features(self,frame):
         '''Extract frame kurtosis, frame log energy and frame zero-crossing rate.
         '''
-        frame = np.array(frame)
-
-        #assert frame.shape == (self.frame_length,), f'Unexpected shape: {frame.shape}'
-
-        #tframe = torch.from_numpy(frame)
-        #tframe = tframe.type(torch.FloatTensor)
-        #mfccs = self.mfcc(tframe).flatten().tolist()
-        #mfccs -= (np.mean(mfccs, axis=0) + 1e-8)
-        #mfcc_d = [-1] #self.mfcc_delta(mfccs,2).tolist()
-        #mfcc_dd = [-1] #self.mfcc_delta(mfcc_d,2).tolist()
-        #
         features =  np.array([kurtosis(frame), self.log_energy(frame), self.zcr(frame)])
 
         #features = np.ndarray.flatten(np.array(features, dtype='double'))
