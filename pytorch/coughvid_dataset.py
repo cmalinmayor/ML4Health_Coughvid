@@ -66,7 +66,11 @@ class CoughvidDataset(Dataset):
         self.sample_rate  = sample_rate
         self.get_features = get_features
 
-        self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=39, melkwargs={'center':True, "power": 2,'n_fft':512}) #'n_mels':39,"n_fft": 200,
+
+        n_fft = 512
+        frame_length = n_fft / self.sample_rate * 1000.0
+        frame_shift = frame_length / 2.0
+        self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=39, melkwargs={'center':True, "power": 2,'n_fft':n_fft,'n_mels':40}) #'n_mels':39,"n_fft": 200,
         #torch_mfcc = mfcc_module(torch.tensor(audio))
 
     def __getitem__(self, index):
@@ -102,9 +106,16 @@ class CoughvidDataset(Dataset):
                 return self.__getitem__(index-1)
 
         frames = self.extract_frames(masked_audio)
-        features = [self.extract_features(frame) for frame in frames]
+        other_features = np.array([self.extract_features(frame) for frame in frames])
 
-        return np.array(features), labels
+        mels = [self.mfcc(torch.from_numpy(np.array(frame)).type(torch.FloatTensor)).flatten().tolist() for frame in frames]
+        mel_d= self.mfcc_delta(np.array(mels).T,2)
+        mel_dd = self.mfcc_delta(mel_d,2)
+
+
+        features = np.concatenate((mels,mel_d.T,mel_dd.T,other_features),axis=1)
+
+        return features, labels
 
 
 
@@ -137,11 +148,22 @@ class CoughvidDataset(Dataset):
         '''
         return np.log2(max(1,np.sum(np.power(frame,2))))
 
-    def mfcc_velocity(self,mfccs):
-        return -1
-
-    def mfcc_acceleration(self,mfccs):
-        return -1
+    def mfcc_delta(self, feat, N):
+        """Compute delta features from a feature vector sequence. Taken from 
+        https://github.com/jameslyons/python_speech_features/blob/e280ac2b5797a3445c34820b0110885cd6609e5f/python_speech_features/base.py#L195
+        :param feat: A numpy array of size (NUMFRAMES by number of features) containing features. Each row holds 1 feature vector.
+        :param N: For each frame, calculate delta features based on preceding and following N frames
+        :returns: A numpy array of size (NUMFRAMES by number of features) containing delta features. Each row holds 1 delta feature vector.
+        """
+        if N < 1:
+            raise ValueError('N must be an integer >= 1')
+        NUMFRAMES = len(feat)
+        denominator = 2 * sum([i**2 for i in range(1, N+1)])
+        delta_feat = np.empty_like(feat)
+        padded = np.pad(feat, ((N, N), (0, 0)), mode='edge')   # padded version of feat
+        for t in range(NUMFRAMES):
+            delta_feat[t] = np.dot(np.arange(-N, N+1), padded[t : t+2*N+1]) / denominator   # [t : t+2*N+1] == [(N+t)-N : (N+t)+N+1]
+        return delta_feat
 
     def extract_frames(self,masked_audio):
         '''Extract self.frames number of frames of self.frame_length length.
@@ -173,18 +195,20 @@ class CoughvidDataset(Dataset):
         return frames
 
     def extract_features(self,frame):
-        '''Extract mel-cepstral coefficients, their acceleration, their velocity,
-        frame kurtosis, frame log energy and frame zero-crossing rate.
+        '''Extract frame kurtosis, frame log energy and frame zero-crossing rate.
         '''
         frame = np.array(frame)
 
         #assert frame.shape == (self.frame_length,), f'Unexpected shape: {frame.shape}'
 
-        tframe = torch.from_numpy(frame)
-        tframe = tframe.type(torch.FloatTensor)
-        mfccs = self.mfcc(tframe)
+        #tframe = torch.from_numpy(frame)
+        #tframe = tframe.type(torch.FloatTensor)
+        #mfccs = self.mfcc(tframe).flatten().tolist()
+        #mfccs -= (np.mean(mfccs, axis=0) + 1e-8)
+        #mfcc_d = [-1] #self.mfcc_delta(mfccs,2).tolist()
+        #mfcc_dd = [-1] #self.mfcc_delta(mfcc_d,2).tolist()
         #
-        features =  mfccs.flatten().tolist() + [self.mfcc_velocity(mfccs), self.mfcc_acceleration(mfccs), kurtosis(frame), self.log_energy(frame), self.zcr(frame)]
+        features =  np.array([kurtosis(frame), self.log_energy(frame), self.zcr(frame)])
 
         #features = np.ndarray.flatten(np.array(features, dtype='double'))
 
