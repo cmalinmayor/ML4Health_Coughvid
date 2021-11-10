@@ -36,7 +36,7 @@ class CoughvidDataset(Dataset):
             self.dataframe = pd.read_csv(f)
         self.__convert_to_numeric__(self.dataframe)
         self.audio_extensions = ['.webm', '.ogg']
-        self.labels = ['cough_detected']#, 'SNR', 'status', 'age']# , 'respiratory_condition', 'gender']
+        self.labels = ['status']#, 'SNR', 'status', 'age']# , 'respiratory_condition', 'gender']
         
         #load mask arrays
         self.mask_loc = mask_loc if mask_loc else data_dir
@@ -69,8 +69,8 @@ class CoughvidDataset(Dataset):
 
 
         n_fft = 512
-        frame_length = n_fft / self.sample_rate * 1000.0
-        frame_shift = frame_length / 2.0
+        #frame_length = n_fft / self.sample_rate * 1000.0
+        #frame_shift = frame_length / 2.0
         self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=39, melkwargs={'center':True, "power": 2,'n_fft':n_fft,'n_mels':40}) #'n_mels':39,"n_fft": 200,
         #torch_mfcc = mfcc_module(torch.tensor(audio))
 
@@ -95,7 +95,7 @@ class CoughvidDataset(Dataset):
         audio = self.normalize_audio(audio)
 
         # second, load segmented array and apply mask
-        mask = self.mask_array[index] if self.mask_array else segment_cough(audio,self.sample_rate)[1]
+        mask = 1#self.mask_array[index] if self.mask_array else segment_cough(audio,self.sample_rate)[1]
         masked_audio = np.ma.masked_array(audio,1-mask) # 0 is uncensored, 1 is censored
 
         # drop samples too short to analyze
@@ -115,7 +115,7 @@ class CoughvidDataset(Dataset):
 
         # compute features
         mfcc        = librosa.feature.mfcc(frames.flatten(), sr=self.sample_rate, n_mfcc=26, n_mels=40, n_fft=512, hop_length=self.frame_length, power=2,center=False)
-        mfcc       -= np.mean(mfcc)
+        #mfcc       -= np.mean(mfcc)
         mfcc_delta  = librosa.feature.delta(mfcc)
         mfcc_delta2 = librosa.feature.delta(mfcc, order=2)
         other_feat  = np.array([self.extract_other_features(frame) for frame in frames]).T
@@ -126,6 +126,7 @@ class CoughvidDataset(Dataset):
 
         # resize to interval [0,1] along time axis (didn't work)
         #features = (features - np.min(features,axis=1)[None,...].T) / (np.max(features,axis=1)[None,...].T-np.min(features,axis=1)[None,...].T)
+        #features = (features - np.min(features)) / (np.max(features)-np.min(features))
 
         # return standard deviations
         #features = (features - np.mean(features)) / np.std(features)
