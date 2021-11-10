@@ -107,19 +107,31 @@ class CoughvidDataset(Dataset):
                 return self.__getitem__(index-1)
 
         # extract self.frames number of frames of self.frame_length length from masked audio
-        frames = self.extract_frames(masked_audio.compressed())
+        frames = self.extract_frames(masked_audio.compressed())#,uuid)
 
         #mels = [self.mfcc(torch.from_numpy(frame).type(torch.FloatTensor)).flatten().tolist()[:38] for frame in frames]
         #mel_d= self.mfcc_delta(np.array(mels),2)
         #mel_dd = self.mfcc_delta(mel_d,2)
 
         # compute features
-        mfcc        = librosa.feature.mfcc(frames.flatten(), sr=self.sample_rate, n_mfcc=39, n_fft=512, hop_length=self.frame_length, power=2,center=False)
+        mfcc        = librosa.feature.mfcc(frames.flatten(), sr=self.sample_rate, n_mfcc=26, n_mels=40, n_fft=512, hop_length=self.frame_length, power=2,center=False)
+        mfcc       -= np.mean(mfcc)
         mfcc_delta  = librosa.feature.delta(mfcc)
         mfcc_delta2 = librosa.feature.delta(mfcc, order=2)
         other_feat  = np.array([self.extract_other_features(frame) for frame in frames]).T
 
         features = np.concatenate((mfcc, mfcc_delta, mfcc_delta2, other_feat)) # shape should be (n_mfcc * 3 + 3, self.frames)
+
+        # normalization steps
+
+        # resize to interval [0,1] along time axis (didn't work)
+        #features = (features - np.min(features,axis=1)[None,...].T) / (np.max(features,axis=1)[None,...].T-np.min(features,axis=1)[None,...].T)
+
+        # return standard deviations
+        #features = (features - np.mean(features)) / np.std(features)
+
+        # return as image with values from [0,255]
+        #features = self.spec_to_image(features)
 
         return features, labels
 
@@ -134,6 +146,15 @@ class CoughvidDataset(Dataset):
             dataframe.loc[dataframe['status'] == key, 'status'] = value
 
     ### FUNCTIONS FOR FEATURE EXTRACTION ###
+    def spec_to_image(self, spec, eps=1e-6):
+        mean = np.mean(spec)
+        std = np.std(spec)
+        spec_norm = (spec - mean) / (std + eps)
+        spec_min, spec_max = np.min(spec), np.max(spec)
+        spec_scaled = 255 * (spec_norm - spec_min) / (spec_max - spec_min)
+        spec_scaled = spec_scaled.astype(np.uint8)
+        return spec_scaled
+
     def normalize_audio(self,audio):
         '''Normalize the audio signal according to the formula in
         https://www.sciencedirect.com/science/article/pii/S0010482521003668?via%3Dihub
@@ -152,7 +173,7 @@ class CoughvidDataset(Dataset):
         '''
         return np.log2(max(1,np.sum(np.power(frame,2))))
 
-    def extract_frames(self,valid_samples):
+    def extract_frames(self,valid_samples,uuid=None):
         '''Extract self.frames number of frames of self.frame_length length.
         '''
         #if not len(valid_samples) >= self.frame_length * self.frames: print( f'WARNING: {len(valid_samples)} frames found, need at least {self.frame_length * self.frames}' )
@@ -163,17 +184,17 @@ class CoughvidDataset(Dataset):
         frames = []
 
         for i in np.linspace(0,len(valid_samples)-1,self.frames,endpoint=False):
-            frame = valid_samples[int(i):int(i+self.frame_length)]
+            frame = valid_samples[int(i):int(i)+self.frame_length]
 
-            if len(frame) > self.frame_length: 
-                frame = frame[:self.frame_length-1]
-            elif len(frame) < self.frame_length:
 
+            if len(frame) < self.frame_length:
                 print(f'WARNING: Unexpected frame length encountered at {int(i)} of {len(valid_samples)}: {len(frame)}. Padding {self.frame_length-len(frame)} frames.')
 
                 frame = np.pad(frame, (0, max(0,self.frame_length-len(frame))), 'constant')
+            elif len(frame) > self.frame_length: 
+                frame = frame[:self.frame_length-1]
 
-            #assert len(frame) == self.frame_length
+            #assert len(frame) == self.frame_length, f'Frame length of {len(frame)} detected in {uuid}.'
 
             frames += [frame]
 
