@@ -19,7 +19,8 @@ class CoswaraDataset(Dataset):
                  data_dir,
                  csv_file='filtered_data.csv',
                  get_features=True,
-                 sample_rate=48000,
+                 filter_data=True, 
+                 sample_rate=44100,
                  frame_length=1024,
                  frames=50,
                  samples_per_class=None):
@@ -44,10 +45,22 @@ class CoswaraDataset(Dataset):
         # generate labels for training
         self.__convert_to_numeric__(self.dataframe)
 
-        self.mfcc = MFCC(sample_rate=self.sample_rate,
-                         n_mfcc=39,
-                         melkwargs={'center': True, "power": 2,
-                                    'n_fft': self.n_fft, 'n_mels': 40})
+        # get only records that have a COVID status label and a cough-detected above 0.8. Loading all the files takes too long
+        assert filter_data, f'WARNING: All {len(self)} records have been selected for loading.'
+        if filter_data:
+            status_groups = [0,1]
+            status = np.isin(self.dataframe['covid_status'],status_groups)#['healthy','symptomatic','COVID-19'])
+            cough_detected = True#self.dataframe['cough_detected'] > 0.8 # recommended threshold from https://www.nature.com/articles/s41597-021-00937-4
+
+            self.dataframe = self.dataframe[ np.logical_and(status,cough_detected) ]
+
+            # obtain at least samples_per_class per class
+            if samples_per_class:
+                samples = [self.dataframe[self.dataframe['covid_status'] == i].head(samples_per_class) for i in status_groups]
+                self.dataframe = pd.concat(samples)
+
+            print(f'{len(self)} records ready to load across {len(status_groups)} groups.')
+
 
     def __getitem__(self, index):
         entry = self.dataframe.iloc[index]
@@ -82,10 +95,15 @@ class CoswaraDataset(Dataset):
 
         # compute features
         mfcc = librosa.feature.mfcc(
-                frames.flatten(), sr=self.sample_rate,
-                n_mfcc=26, n_mels=40, n_fft=512,
+                frames.flatten(), 
+                sr=self.sample_rate,
+                n_mfcc=26, 
+                n_mels=40, 
+                n_fft=512,
                 hop_length=self.frame_length,
-                power=2, center=False)
+                power=2, 
+                center=False,
+                fmax=8192)
         mfcc_delta = librosa.feature.delta(mfcc)
         mfcc_delta2 = librosa.feature.delta(mfcc, order=2)
         other_feat = np.array([extract_other_features(frame)

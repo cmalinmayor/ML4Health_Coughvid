@@ -1,8 +1,7 @@
 import torch
 from torch.utils.data import Dataset
-from torchaudio.transforms import MFCC
 import leaf_audio_pytorch.frontend as frontend
-from segmentation import segment_cough
+#from segmentation import segment_cough
 import librosa  
 
 import pandas as pd
@@ -66,13 +65,6 @@ class CoughvidDataset(Dataset):
         self.frames       = frames
         self.sample_rate  = sample_rate
         self.get_features = get_features
-
-
-        n_fft = 512
-        #frame_length = n_fft / self.sample_rate * 1000.0
-        #frame_shift = frame_length / 2.0
-        self.mfcc = MFCC(sample_rate=self.sample_rate, n_mfcc=39, melkwargs={'center':True, "power": 2,'n_fft':n_fft,'n_mels':40}) #'n_mels':39,"n_fft": 200,
-        #torch_mfcc = mfcc_module(torch.tensor(audio))
 
     def __getitem__(self, index):
         entry = self.dataframe.iloc[index]
