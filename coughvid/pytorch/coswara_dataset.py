@@ -50,9 +50,8 @@ class CoswaraDataset(Dataset):
         if filter_data:
             status_groups = [0,1]
             status = np.isin(self.dataframe['covid_status'],status_groups)#['healthy','symptomatic','COVID-19'])
-            cough_detected = True#self.dataframe['cough_detected'] > 0.8 # recommended threshold from https://www.nature.com/articles/s41597-021-00937-4
 
-            self.dataframe = self.dataframe[ np.logical_and(status,cough_detected) ]
+            self.dataframe = self.dataframe[ status ]
 
             # obtain at least samples_per_class per class
             if samples_per_class:
@@ -71,7 +70,7 @@ class CoswaraDataset(Dataset):
             audio = pydub.AudioSegment.from_file(filename)
         else:
             assert audio is not None, f"No audio found with uuid {uuid}"
-        audio = np.array(audio.get_array_of_samples(), dtype='int64')
+        audio = np.array(audio.get_array_of_samples(), dtype=np.int64)
         labels = torch.IntTensor(entry[self.labels])[0]
 
         # return raw audio and labels unless self.get_features
@@ -79,7 +78,7 @@ class CoswaraDataset(Dataset):
             return audio, labels
 
         # first, normalize audio
-        # audio = normalize_audio(audio)
+        #audio = normalize_audio(audio)
 
         # drop samples too short to analyze
         if len(audio) < self.frame_length:
@@ -104,9 +103,9 @@ class CoswaraDataset(Dataset):
                 power=2, 
                 center=False,
                 fmax=8192)
-        mfcc_delta = librosa.feature.delta(mfcc)
+        mfcc_delta  = librosa.feature.delta(mfcc)
         mfcc_delta2 = librosa.feature.delta(mfcc, order=2)
-        other_feat = np.array([extract_other_features(frame)
+        other_feat  = np.array([extract_other_features(frame)
                                for frame in frames]).T
 
         features = np.concatenate((mfcc, mfcc_delta, mfcc_delta2, other_feat))

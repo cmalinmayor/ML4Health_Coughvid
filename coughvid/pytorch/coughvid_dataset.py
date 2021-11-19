@@ -47,7 +47,7 @@ class CoughvidDataset(Dataset):
         # get only records that have a COVID status label and a cough-detected above 0.8. Loading all the files takes too long
         assert filter_data, f'WARNING: All {len(self)} records have been selected for loading.'
         if filter_data:
-            status_groups = [0,2]
+            status_groups = [0,1]
             status = np.isin(self.dataframe['status'],status_groups)#['healthy','symptomatic','COVID-19'])
             cough_detected = self.dataframe['cough_detected'] > 0.8 # recommended threshold from https://www.nature.com/articles/s41597-021-00937-4
 
@@ -133,7 +133,7 @@ class CoughvidDataset(Dataset):
 
     def __convert_to_numeric__(self, dataframe):
         #respiratory_condition_map = {'False': 0, 'True': 1, 'NaN': -1}
-        status_map = {'healthy': 0, 'symptomatic': 1, "COVID-19": 2, 'NaN': -1}
+        status_map = {'healthy': 0, 'symptomatic': 2, "COVID-19": 1, 'NaN': -1}
         #gender_map = {'female': 0, 'male': 1, 'other': 2, 'NaN': -1}
         for key, value in status_map.items():
             dataframe.loc[dataframe['status'] == key, 'status'] = value
