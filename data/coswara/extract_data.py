@@ -23,7 +23,7 @@ def filter_by_covid_status(df):
 def get_metadata(data_download, extracted_data_dir):
     fname = 'combined_data.csv'
     orig_path = os.path.join(data_download, fname)
-    new_fname = 'filtered_data.csv'
+    new_fname = 'extracted_data.csv'
     new_path = os.path.join(extracted_data_dir, new_fname)
 
     df = pd.read_csv(orig_path)
