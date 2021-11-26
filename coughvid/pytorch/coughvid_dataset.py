@@ -10,6 +10,8 @@ import pydub
 import numpy as np
 import logging
 from scipy.stats import kurtosis, entropy
+from coughvid.audio_processing import (
+        normalize_audio, extract_frames, extract_other_features, generate_feature_matrix)
 
 logger = logging.getLogger(__name__)
 
@@ -84,7 +86,7 @@ class CoughvidDataset(Dataset):
         if not self.get_features: return audio, labels
 
         # first, normalize audio
-        audio = self.normalize_audio(audio)
+        audio = normalize_audio(audio)
 
         # second, load segmented array and apply mask
         mask = 1#self.mask_array[index] if self.mask_array else segment_cough(audio,self.sample_rate)[1]
@@ -99,7 +101,7 @@ class CoughvidDataset(Dataset):
                 return self.__getitem__(index-1)
 
         # extract self.frames number of frames of self.frame_length length from masked audio
-        frames = self.extract_frames(masked_audio.compressed())#,uuid)
+        frames = extract_frames(masked_audio.compressed())#,uuid)
 
         #mels = [self.mfcc(torch.from_numpy(frame).type(torch.FloatTensor)).flatten().tolist()[:38] for frame in frames]
         #mel_d= self.mfcc_delta(np.array(mels),2)
@@ -110,7 +112,7 @@ class CoughvidDataset(Dataset):
         #mfcc       -= np.mean(mfcc)
         mfcc_delta  = librosa.feature.delta(mfcc)
         mfcc_delta2 = librosa.feature.delta(mfcc, order=2)
-        other_feat  = np.array([self.extract_other_features(frame) for frame in frames]).T
+        other_feat  = np.array([extract_other_features(frame) for frame in frames]).T
 
         features = np.concatenate((mfcc, mfcc_delta, mfcc_delta2, other_feat)) # shape should be (n_mfcc * 3 + 3, self.frames)
 
@@ -137,66 +139,3 @@ class CoughvidDataset(Dataset):
         #gender_map = {'female': 0, 'male': 1, 'other': 2, 'NaN': -1}
         for key, value in status_map.items():
             dataframe.loc[dataframe['status'] == key, 'status'] = value
-
-    ### FUNCTIONS FOR FEATURE EXTRACTION ###
-    def spec_to_image(self, spec, eps=1e-6):
-        mean = np.mean(spec)
-        std = np.std(spec)
-        spec_norm = (spec - mean) / (std + eps)
-        spec_min, spec_max = np.min(spec), np.max(spec)
-        spec_scaled = 255 * (spec_norm - spec_min) / (spec_max - spec_min)
-        spec_scaled = spec_scaled.astype(np.uint8)
-        return spec_scaled
-
-    def normalize_audio(self,audio):
-        '''Normalize the audio signal according to the formula in
-        https://www.sciencedirect.com/science/article/pii/S0010482521003668?via%3Dihub
-        '''
-        return 0.9 * audio / np.max(audio)
-
-    def zcr(self,frame):
-        '''Calculate the number of times the signal passes through zero,
-        a.k.a. the zero-crossing rate.
-        '''
-        zero_crosses = len(np.nonzero(np.diff(frame > 0))[0])
-        return zero_crosses
-
-    def log_energy(self,frame):
-        '''Calculate the log energy of the audio signal.
-        '''
-        return np.log2(max(1,np.sum(np.power(frame,2))))
-
-    def extract_frames(self,valid_samples,uuid=None):
-        '''Extract self.frames number of frames of self.frame_length length.
-        '''
-        #if not len(valid_samples) >= self.frame_length * self.frames: print( f'WARNING: {len(valid_samples)} frames found, need at least {self.frame_length * self.frames}' )
-
-        #frame_skip = int(np.ceil(len(valid_samples)*1.0/self.frames))
-        #assert frame_skip > 0
-
-        frames = []
-
-        for i in np.linspace(0,len(valid_samples)-1,self.frames,endpoint=False):
-            frame = valid_samples[int(i):int(i)+self.frame_length]
-
-
-            if len(frame) < self.frame_length:
-                print(f'WARNING: Unexpected frame length encountered at {int(i)} of {len(valid_samples)}: {len(frame)}. Padding {self.frame_length-len(frame)} frames.')
-
-                frame = np.pad(frame, (0, max(0,self.frame_length-len(frame))), 'constant')
-            elif len(frame) > self.frame_length: 
-                frame = frame[:self.frame_length-1]
-
-            #assert len(frame) == self.frame_length, f'Frame length of {len(frame)} detected in {uuid}.'
-
-            frames += [frame]
-
-        #assert len(frames) == self.frames, f'Only {len(frames)} frames extracted, need {self.frames}.'
-
-        return np.array(frames,dtype=np.float32)
-
-    def extract_other_features(self,frame):
-        '''Extract frame kurtosis, frame log energy and frame zero-crossing rate.
-        '''
-        features =  np.array([kurtosis(frame), self.log_energy(frame), self.zcr(frame)])
-        return features

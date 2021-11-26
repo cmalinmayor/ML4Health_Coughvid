@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.stats import kurtosis
+import librosa
 
 
 ''' FUNCTIONS FOR FEATURE EXTRACTION '''
@@ -76,4 +77,17 @@ def extract_other_features(frame):
     '''Extract frame kurtosis, frame log energy and frame zero-crossing rate.
     '''
     features = np.array([kurtosis(frame), log_energy(frame), zcr(frame)])
+    return features
+
+def generate_feature_matrix(frames,sample_rate,frame_length):
+    '''Extract the entire feature matrix consisting of MFCCs, MFCC velocity, 
+    MFCC acceleration, kurtosis, log_energy, and zero crossing rate.'''
+    mfcc        = librosa.feature.mfcc(frames.flatten(), sr=sample_rate, n_mfcc=26, n_mels=40, n_fft=512, hop_length=frame_length, power=2,center=False)
+    #mfcc       -= np.mean(mfcc)
+    mfcc_delta  = librosa.feature.delta(mfcc)
+    mfcc_delta2 = librosa.feature.delta(mfcc, order=2)
+    other_feat  = np.array([extract_other_features(frame) for frame in frames]).T
+
+    features = np.concatenate((mfcc, mfcc_delta, mfcc_delta2, other_feat))
+
     return features

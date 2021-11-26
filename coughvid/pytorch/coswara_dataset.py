@@ -9,7 +9,7 @@ import pydub
 import numpy as np
 import logging
 from coughvid.audio_processing import (
-        normalize_audio, extract_frames, extract_other_features)
+        normalize_audio, extract_frames, extract_other_features, generate_feature_matrix)
 
 logger = logging.getLogger(__name__)
 
