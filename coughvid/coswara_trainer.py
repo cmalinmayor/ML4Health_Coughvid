@@ -1,6 +1,6 @@
 import numpy as np
 
-from coughvid.pytorch.coswara_dataset import CoswaraDataset
+from coughvid.pytorch import CoswaraDataset, SubsetWeightedRandomSampler, compute_weights
 import torch
 from torch.utils.data import DataLoader, SubsetRandomSampler
 from torchvision.models import resnet50, resnet18
@@ -52,21 +52,23 @@ class CoswaraTrainer:
                 self.data_dir, self.metadata_file, get_features=True)
         dataframe = full_dataset.dataframe
         minority_class_count = len(dataframe[dataframe['covid_status'] == 1])
-        print(f'{minority_class_count} samples in the minority class.')
-        # TODO: don't limit number of samples from majority class
-        sample_dataset = CoswaraDataset(
-                self.data_dir, 'filtered_data.csv',
-                get_features=True, samples_per_class=minority_class_count)
+        samples_per_epoch = minority_class_count*2
+        print(f'{samples_per_epoch} samples per_epoch.')
 
         # split data into training and test samples
         train_indices, test_indices = train_test_split(
-                np.arange(0, len(sample_dataset)-1), test_size=0.25)
-        train_loader = DataLoader(sample_dataset,
+                np.arange(0, len(full_dataset)-1), test_size=0.25)
+        labels = list(dataframe['covid_status'])
+        train_weights = compute_weights(labels, train_indices)
+        train_sampler = SubsetWeightedRandomSampler(
+                train_indices, train_weights, samples_per_epoch)
+
+        train_loader = DataLoader(full_dataset,
                                   num_workers=self.num_workers,
-                                  sampler=SubsetRandomSampler(train_indices)
+                                  sampler=train_sampler
                                   )
 
-        test_loader = DataLoader(sample_dataset,
+        test_loader = DataLoader(full_dataset,
                                  num_workers=self.num_workers,
                                  sampler=SubsetRandomSampler(test_indices)
                                  )
