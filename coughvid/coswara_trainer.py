@@ -120,7 +120,7 @@ class CoswaraTrainer:
                         float(loss_sum) / float(samples),
                         float(correct_sum) / float(samples)
                     ))
-                return loss_sum, samples, correct_sum
+        return loss_sum, samples, correct_sum
 
     def train_model(
             self,
@@ -129,14 +129,14 @@ class CoswaraTrainer:
             use_wandb=True):
         dataloaders = self.get_dataloaders()
         model, optimizer, criterion = self.load_model(model_type)
-        print("success!")
-        return
 
         # RESNET training code adapted from
         # https://www.kaggle.com/gxkok21/resnet50-with-pytorch
         if torch.cuda.is_available():
             model = model.cuda()
             print('Using GPU.')
+        else:
+            print('NOT Using GPU. :(')
 
         if use_wandb:
             wandb.init()
@@ -153,7 +153,9 @@ class CoswaraTrainer:
                     model.eval()
 
                 loss_sum, samples, correct_sum = self.training_step(
-                        model, dataloaders[phase])
+                        model, dataloaders[phase],
+                        optimizer, criterion,
+                        phase=phase, use_wandb=use_wandb)
 
                 # Print epoch statistics
                 epoch_acc = float(correct_sum) / float(samples)
