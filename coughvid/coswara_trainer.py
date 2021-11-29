@@ -1,6 +1,6 @@
 import numpy as np
 
-from coughvid.pytorch.coswara_dataset import CoswaraDataset
+from coughvid.pytorch import CoswaraDataset, SubsetWeightedRandomSampler, compute_weights
 import torch
 from torch.utils.data import DataLoader, SubsetRandomSampler
 from torchvision.models import resnet50, resnet18
@@ -58,8 +58,8 @@ class CoswaraTrainer:
         # split data into training and test samples
         train_indices, test_indices = train_test_split(
                 np.arange(0, len(full_dataset)-1), test_size=0.25)
-        labels = dataframe['covid_status']
-        train_weights = compute_weights(labels, trian_indices)
+        labels = list(dataframe['covid_status'])
+        train_weights = compute_weights(labels, train_indices)
         train_sampler = SubsetWeightedRandomSampler(
                 train_indices, train_weights, samples_per_epoch)
 
@@ -68,7 +68,7 @@ class CoswaraTrainer:
                                   sampler=train_sampler
                                   )
 
-        test_loader = DataLoader(sample_dataset,
+        test_loader = DataLoader(full_dataset,
                                  num_workers=self.num_workers,
                                  sampler=SubsetRandomSampler(test_indices)
                                  )
