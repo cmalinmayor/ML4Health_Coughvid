@@ -20,7 +20,7 @@ def normalize_audio(audio):
     '''Normalize the audio signal according to the formula in
     https://www.sciencedirect.com/science/article/pii/S0010482521003668?via%3Dihub
     '''
-    return 0.9 * audio / np.max(audio)
+    return 0.9 * audio / max(abs(np.max(audio)), 1e-6)
 
 
 def zcr(frame):
