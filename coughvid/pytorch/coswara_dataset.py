@@ -20,6 +20,7 @@ class CoswaraDataset(Dataset):
                  data_dir,
                  csv_file='filtered_data.csv',
                  get_features=True,
+                 get_leaf = False,
                  filter_data=True, 
                  sample_rate=44100,
                  frame_length=1024,
@@ -31,6 +32,7 @@ class CoswaraDataset(Dataset):
         self.frames = frames
         self.sample_rate = sample_rate
         self.get_features = get_features
+        self.get_leaf = get_leaf
         self.samples_per_class = samples_per_class
         self.n_fft = 512
 
@@ -61,6 +63,9 @@ class CoswaraDataset(Dataset):
         # return raw audio and labels unless self.get_features
         if not self.get_features:
             return audio, labels
+        
+        if self.get_leaf:
+            return filename, labels
 
         # first, normalize audio
         audio = normalize_audio(audio)
