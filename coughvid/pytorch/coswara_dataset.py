@@ -45,22 +45,6 @@ class CoswaraDataset(Dataset):
         # generate labels for training
         self.__convert_to_numeric__(self.dataframe)
 
-        # get only records that have a COVID status label and a cough-detected above 0.8. Loading all the files takes too long
-        assert filter_data, f'WARNING: All {len(self)} records have been selected for loading.'
-        if filter_data:
-            status_groups = [0,1]
-            status = np.isin(self.dataframe['covid_status'],status_groups)#['healthy','symptomatic','COVID-19'])
-
-            self.dataframe = self.dataframe[ status ]
-
-            # obtain at least samples_per_class per class
-            if samples_per_class:
-                samples = [self.dataframe[self.dataframe['covid_status'] == i].head(samples_per_class) for i in status_groups]
-                self.dataframe = pd.concat(samples)
-
-            print(f'{len(self)} records ready to load across {len(status_groups)} groups.')
-
-
     def __getitem__(self, index):
         entry = self.dataframe.iloc[index]
         uuid = entry['id']
