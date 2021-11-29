@@ -11,8 +11,9 @@ import logging
 from coughvid.audio_processing import (
         normalize_audio, extract_frames, extract_other_features, generate_feature_matrix)
 
-logger = logging.getLogger(__name__)
+from data_augmentation.data_augmentation import DataAugmentation
 
+logger = logging.getLogger(__name__)
 
 class CoswaraDataset(Dataset):
     def __init__(self,
@@ -62,7 +63,7 @@ class CoswaraDataset(Dataset):
             return audio, labels
 
         # first, normalize audio
-        #audio = normalize_audio(audio)
+        audio = normalize_audio(audio)
 
         # drop samples too short to analyze
         if len(audio) < self.frame_length:
@@ -72,6 +73,19 @@ class CoswaraDataset(Dataset):
                 return self.__getitem__(index+1)
             else:
                 return None
+
+        # apply data augmentation methods
+        da = DataAugmentation(audio)
+        # randomly decide method
+        decision = np.random.randint(2, size=3)
+        noise, lp, hp = decision[0], decision[1], decision[2]
+
+        if noise:
+            audio = da.apply_gaussian_noise()
+        if lp:
+            audio = da.apply_lp()
+        if hp:
+            audio = da.apply_hp()
 
         # extract self.frames number of frames of self.frame_length length
         frames = extract_frames(audio, self.frames, self.frame_length)
