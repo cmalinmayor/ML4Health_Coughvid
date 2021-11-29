@@ -1,6 +1,7 @@
 from torch.utils.data import Sampler, WeightedRandomSampler
 import numpy as np
 
+
 class SubsetWeightedRandomSampler(Sampler):
     ''' A sampler that takes a subset of samples'''
 
@@ -9,14 +10,15 @@ class SubsetWeightedRandomSampler(Sampler):
         self.weights = weights
         self.num_samples = num_samples
         self.replacement = replacement
-        self.weighted_random = WeightedRandomSampler(weights, num_samples, replacement=replacement)
+        self.weighted_random = WeightedRandomSampler(
+                weights, num_samples, replacement=replacement)
         self.iterator = None
 
     def __iter__(self):
         self.iterator = iter(WeightedRandomSampler(
                 self.weights, self.num_samples, replacement=self.replacement))
         return self
-    
+
     def __next__(self):
         i = next(self.iterator)
         if i:
@@ -29,8 +31,9 @@ class SubsetWeightedRandomSampler(Sampler):
 
 
 def compute_weights(labels, indices=None):
-    if indices:
-        labels = np.array(labels)[indices]
+    labels = np.array(labels)
+    if indices is not None:
+        labels = labels[indices]
     counts = np.bincount(labels)
     labels_weights = 1. / counts
     weights = labels_weights[labels]
