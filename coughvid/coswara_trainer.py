@@ -47,9 +47,9 @@ class CoswaraTrainer:
         model.double()
         return model, optimizer, criterion
 
-    def get_dataloaders(self, leaf=False, augmentation=False):
+    def get_dataloaders(self, leaf=False, augmentation=False, normalization=True):
         full_dataset = CoswaraDataset(
-                self.data_dir, self.metadata_file, get_features=True)
+                self.data_dir, self.metadata_file, normalization=normalization, get_features=True, get_leaf=leaf, augmentation=augmentation)
         dataframe = full_dataset.dataframe
         minority_class_count = len(dataframe[dataframe['covid_status'] == 1])
         samples_per_epoch = minority_class_count*2
@@ -126,10 +126,11 @@ class CoswaraTrainer:
 
     def train_model(
             self,
+            dataloaders,
             model_type='resnet18',
             num_epochs=50,
             use_wandb=True):
-        dataloaders = self.get_dataloaders()
+
         model, optimizer, criterion = self.load_model(model_type)
 
         # RESNET training code adapted from

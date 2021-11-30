@@ -20,8 +20,10 @@ class CoswaraDataset(Dataset):
                  data_dir,
                  csv_file='filtered_data.csv',
                  get_features=True,
-                 get_leaf = False,
-                 filter_data=True, 
+                 get_leaf=False,
+                 augmentation=False,
+                 normalization=False,
+                 filter_data=True,
                  sample_rate=44100,
                  frame_length=1024,
                  frames=50,
@@ -33,6 +35,8 @@ class CoswaraDataset(Dataset):
         self.sample_rate = sample_rate
         self.get_features = get_features
         self.get_leaf = get_leaf
+        self.normalization = normalization
+        self.augmentation = augmentation
         self.samples_per_class = samples_per_class
         self.n_fft = 512
 
@@ -60,15 +64,9 @@ class CoswaraDataset(Dataset):
         audio = np.array(audio.get_array_of_samples(), dtype=np.int64)
         labels = torch.IntTensor(entry[self.labels])[0]
 
-        # return raw audio and labels unless self.get_features
-        if not self.get_features:
-            return audio, labels
-        
-        if self.get_leaf:
-            return filename, labels
-
         # first, normalize audio
-        audio = normalize_audio(audio)
+        if self.normalization:
+            audio = normalize_audio(audio)
 
         # drop samples too short to analyze
         if len(audio) < self.frame_length:
@@ -79,18 +77,26 @@ class CoswaraDataset(Dataset):
             else:
                 return None
 
-        # apply data augmentation methods
-        da = DataAugmentation(audio)
-        # randomly decide method
-        decision = np.random.randint(2, size=3)
-        noise, lp, hp = decision[0], decision[1], decision[2]
+        # apply data augmentation methods if self.augmenatation
+        if self.augmentation:
+            da = DataAugmentation(audio)
+            # randomly decide method
+            decision = np.random.randint(2, size=3)
+            noise, lp, hp = decision[0], decision[1], decision[2]
 
-        if noise:
-            audio = da.apply_gaussian_noise()
-        if lp:
-            audio = da.apply_lp()
-        if hp:
-            audio = da.apply_hp()
+            if noise:
+                audio = da.apply_gaussian_noise()
+            if lp:
+                audio = da.apply_lp()
+            if hp:
+                audio = da.apply_hp()
+
+        # return raw audio and labels unless self.get_features
+        if not self.get_features:
+            return audio, labels
+
+        if self.get_leaf:
+            return filename, labels
 
         # extract self.frames number of frames of self.frame_length length
         frames = extract_frames(audio, self.frames, self.frame_length)
