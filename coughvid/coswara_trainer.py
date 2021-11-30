@@ -1,6 +1,8 @@
 import numpy as np
+from datetime import datetime
 
 from coughvid.pytorch import CoswaraDataset, SubsetWeightedRandomSampler, compute_weights
+from .evaluate_model import Evaluator
 import torch
 from torch.utils.data import DataLoader, SubsetRandomSampler
 from torchvision.models import resnet50, resnet18
@@ -79,9 +81,25 @@ class CoswaraTrainer:
         }
         return dataloaders
 
+    def test_step(self, model, dataloader):
+        model.eval()
+        all_labels = []
+        all_predictions = []
+        for j, batch in enumerate(dataloader):
+            X, labels = batch
+            all_labels.extend(list(labels.cpu().numpy()))
+            if torch.cuda.is_available():
+                X = X.cuda()
+                labels = labels.cuda()
+            with torch.set_grad_enabled(False):
+                y = model(X[None, ...].double())
+                all_predictions.extend(list(y.cpu().numpy()))
+        return all_labels, all_predictions
+
     def training_step(
             self, model, dataloader, optimizer, criterion,
-            phase='train', use_wandb=True):
+            use_wandb=True):
+        model.train()
         samples = 0
         loss_sum = 0
         correct_sum = 0
@@ -93,16 +111,15 @@ class CoswaraTrainer:
 
             optimizer.zero_grad()
 
-            with torch.set_grad_enabled(phase == 'train'):
+            with torch.set_grad_enabled(True):
                 y = model(X[None, ...].double())
                 loss = criterion(
                     y,
                     labels[None, ...].double()
                 )
 
-                if phase == "train":
-                    loss.backward()
-                    optimizer.step()
+                loss.backward()
+                optimizer.step()
 
                 # Multiply by batch size as loss is the mean loss of the samples in the batch
                 loss_sum += loss.item() * X.shape[0]
@@ -112,7 +129,7 @@ class CoswaraTrainer:
                 correct_sum += num_corrects
 
                 # Print batch statistics every 50 batches
-                if j % 50 == 49 and phase == "train":
+                if j % 50 == 49:
                     if use_wandb:
                         wandb.log({'Train Loss': float(loss_sum) / float(samples),
                                    'Train Accuracy': float(correct_sum) / float(samples)})
@@ -148,25 +165,26 @@ class CoswaraTrainer:
         best_acc = 0.0
 
         for i in range(num_epochs):
-            for phase in ["train", "test"]:
-                if phase == "train":
-                    model.train()
-                else:
-                    model.eval()
+            # train step
+            loss_sum, samples, correct_sum = self.training_step(
+                    model, dataloaders['train'],
+                    optimizer, criterion,
+                    use_wandb=use_wandb)
 
-                loss_sum, samples, correct_sum = self.training_step(
-                        model, dataloaders[phase],
-                        optimizer, criterion,
-                        phase=phase, use_wandb=use_wandb)
+            # Print epoch statistics
+            epoch_acc = float(correct_sum) / float(samples)
+            epoch_loss = float(loss_sum) / float(samples)
+            print("epoch: {} - train loss: {}, train acc: {}".format(
+                    i + 1, epoch_loss, epoch_acc))
 
-                # Print epoch statistics
-                epoch_acc = float(correct_sum) / float(samples)
-                epoch_loss = float(loss_sum) / float(samples)
-                print("epoch: {} - {} loss: {}, {} acc: {}".format(
-                        i + 1, phase, epoch_loss, phase, epoch_acc))
-
-                # Deep copy the model
-                if phase == "test" and epoch_acc > best_acc:
-                    best_acc = epoch_acc
-                    best_model_wts = copy.deepcopy(model.state_dict())
-                    torch.save(best_model_wts, "resnet18_coswara2.pth")
+            # test step
+            labels, predictions = self.test_step(model, dataloaders['test'])
+            evaluator = Evaluator(labels, predictions)
+            evaluator.print_report()
+            # Deep copy the model
+            str_date_time = datetime.now().strftime("%d%m%Y%H%M%S")
+            if epoch_acc > best_acc:
+                best_acc = epoch_acc
+                best_model_wts = copy.deepcopy(model.state_dict())
+                torch.save(best_model_wts,
+                           f"resnet18_coswara{str_date_time}.pth")
