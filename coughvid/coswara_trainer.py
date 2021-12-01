@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 
 from coughvid.pytorch import CoswaraDataset, SubsetWeightedRandomSampler, compute_weights
-from .evaluate_model import Evaluator
+from evaluate_model import Evaluator
 import torch
 from torch.utils.data import DataLoader, SubsetRandomSampler
 from torchvision.models import resnet50, resnet18
@@ -19,12 +19,15 @@ logger = logging.getLogger(__name__)
 
 
 class CoswaraTrainer:
-    def __init__(self, data_dir, batch_size=1, num_workers=1, model_dir='trained_models'):
+    def __init__(self, data_dir, batch_size=1, num_workers=1, model_dir='trained_models', leaf=False, augmentation=False, normalization=True):
         self.data_dir = data_dir  # './data/coswara/'
         self.metadata_file = 'filtered_data.csv'
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.model_dir = model_dir
+        self.leaf=leaf
+        self.augmentation=augmentation
+        self.normalization=normalization
         os.makedirs(model_dir, exist_ok=True)
 
     def load_model(self, model_type='resnet18',
@@ -56,9 +59,9 @@ class CoswaraTrainer:
         model.double()
         return model, optimizer, criterion
 
-    def get_dataloaders(self, leaf=False, augmentation=False, normalization=True):
+    def get_dataloaders(self):
         full_dataset = CoswaraDataset(
-                self.data_dir, self.metadata_file, normalization=normalization, get_features=True, get_leaf=leaf, augmentation=augmentation)
+                self.data_dir, self.metadata_file, normalization=self.normalization, get_features=True, get_leaf=self.leaf, augmentation=self.augmentation)
         dataframe = full_dataset.dataframe
         minority_class_count = len(dataframe[dataframe['covid_status'] == 1])
         samples_per_epoch = minority_class_count*2
@@ -150,13 +153,12 @@ class CoswaraTrainer:
 
     def train_model(
             self,
-            dataloaders,
             model_type='resnet18',
             num_epochs=50,
             use_wandb=False):
 
         model, optimizer, criterion = self.load_model(model_type)
-
+        dataloaders = self.get_dataloaders()
         # RESNET training code adapted from
         # https://www.kaggle.com/gxkok21/resnet50-with-pytorch
         if torch.cuda.is_available():

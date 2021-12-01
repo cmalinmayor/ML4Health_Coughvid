@@ -1,6 +1,5 @@
 import torch
 from torch.utils.data import Dataset
-import leaf_audio_pytorch.frontend as frontend
 #from segmentation import segment_cough
 import librosa  
 
