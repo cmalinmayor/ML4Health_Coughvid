@@ -1,0 +1,1081 @@
+D:\PyCharm\ML4Health_Coughvid\venv\Scripts\python.exe D:/PyCharm/ML4Health_Coughvid/coughvid/coswara_trainer.py
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+756 samples per_epoch.
+756 samples per_epoch.
+NOT Using GPU. :(
+wandb: Currently logged in as: cassandralee (use `wandb login --relogin` to force relogin)
+
+wandb: Tracking run with wandb version 0.12.7
+wandb: Syncing run fast-wind-2
+wandb:  View project at https://wandb.ai/cassandralee/ML4Health_Coughvid-coughvid
+wandb:  View run at https://wandb.ai/cassandralee/ML4Health_Coughvid-coughvid/runs/158prh7u
+wandb: Run data is saved locally in D:\PyCharm\ML4Health_Coughvid\coughvid\wandb\run-20211128_232230-158prh7u
+wandb: Run `wandb offline` to turn off syncing.
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.9066397040102632, acc: 0.48
+100 - loss: 0.8256220208874278, acc: 0.47
+150 - loss: 0.7836583509321537, acc: 0.5133333333333333
+200 - loss: 0.7805585442542587, acc: 0.53
+250 - loss: 0.7849782910121469, acc: 0.528
+300 - loss: 0.7853932677859506, acc: 0.53
+350 - loss: 0.7762992225991638, acc: 0.5342857142857143
+400 - loss: 0.7732007197395825, acc: 0.5275
+450 - loss: 0.7751600005645191, acc: 0.5222222222222223
+500 - loss: 0.7752077451543862, acc: 0.522
+550 - loss: 0.7762766404655018, acc: 0.5218181818181818
+600 - loss: 0.7877034166536085, acc: 0.5116666666666667
+650 - loss: 0.7792039383388665, acc: 0.52
+700 - loss: 0.7783797178448568, acc: 0.5228571428571429
+750 - loss: 0.7776485825199502, acc: 0.5213333333333333
+epoch: 1 - train loss: 0.7771228658198985, train acc: 0.5211640211640212
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 1 - test loss: 0.6424517885772882, test acc: 0.8013856812933026
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.7748824343446618, acc: 0.44
+100 - loss: 0.7471686707594586, acc: 0.49
+150 - loss: 0.7538620509469183, acc: 0.44666666666666666
+200 - loss: 0.776662067414275, acc: 0.44
+250 - loss: 0.7640499640499611, acc: 0.464
+300 - loss: 0.7597205505088858, acc: 0.47
+350 - loss: 0.7567742673680213, acc: 0.4685714285714286
+400 - loss: 0.7544431758454481, acc: 0.4825
+450 - loss: 0.7481561548765309, acc: 0.4955555555555556
+500 - loss: 0.7526919634696791, acc: 0.488
+550 - loss: 0.7500190503533319, acc: 0.49272727272727274
+600 - loss: 0.7511210439295622, acc: 0.49
+650 - loss: 0.7506328108047331, acc: 0.4876923076923077
+700 - loss: 0.7536237891303582, acc: 0.49
+750 - loss: 0.7494027387107082, acc: 0.49866666666666665
+epoch: 2 - train loss: 0.7464016425572009, train acc: 0.5026455026455027
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 2 - test loss: 1.0596637385230938, test acc: 0.19861431870669746
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.8521115901822359, acc: 0.48
+100 - loss: 0.7677408190528342, acc: 0.53
+150 - loss: 0.7588668407156788, acc: 0.5266666666666666
+200 - loss: 0.7608975814071074, acc: 0.5
+250 - loss: 0.7495137717719171, acc: 0.508
+300 - loss: 0.7441550641804167, acc: 0.51
+350 - loss: 0.7396909531262267, acc: 0.5171428571428571
+400 - loss: 0.740227014703478, acc: 0.5225
+450 - loss: 0.7336175599479222, acc: 0.5355555555555556
+500 - loss: 0.7394599676161849, acc: 0.528
+550 - loss: 0.7359616639097998, acc: 0.5272727272727272
+600 - loss: 0.733996353785734, acc: 0.5283333333333333
+650 - loss: 0.733037797473862, acc: 0.5261538461538462
+700 - loss: 0.7344515592465504, acc: 0.5171428571428571
+750 - loss: 0.7320866652705121, acc: 0.5213333333333333
+epoch: 3 - train loss: 0.7316023092289291, train acc: 0.5211640211640212
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 3 - test loss: 0.6142746989484086, test acc: 0.8013856812933026
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.7185376168539688, acc: 0.66
+100 - loss: 0.7264354937986096, acc: 0.54
+150 - loss: 0.7417213010646966, acc: 0.52
+200 - loss: 0.7383412570018376, acc: 0.505
+250 - loss: 0.7346467788226846, acc: 0.5
+300 - loss: 0.7303062371316628, acc: 0.5066666666666667
+350 - loss: 0.7339508380758405, acc: 0.48857142857142855
+400 - loss: 0.7345001090416936, acc: 0.4775
+450 - loss: 0.7299144387901393, acc: 0.4888888888888889
+500 - loss: 0.7312730055702158, acc: 0.49
+550 - loss: 0.7318728422191737, acc: 0.48545454545454547
+600 - loss: 0.7300265518208544, acc: 0.48
+650 - loss: 0.7339226890161514, acc: 0.47846153846153844
+700 - loss: 0.7325649698387492, acc: 0.48428571428571426
+750 - loss: 0.7323764444178469, acc: 0.4866666666666667
+epoch: 4 - train loss: 0.7319438094528654, train acc: 0.4880952380952381
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 4 - test loss: 0.9428157694067317, test acc: 0.26558891454965355
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6924546400116991, acc: 0.56
+100 - loss: 0.7150996203561404, acc: 0.54
+150 - loss: 0.7119534246352531, acc: 0.54
+200 - loss: 0.6956590971640577, acc: 0.58
+250 - loss: 0.7060362467424659, acc: 0.564
+300 - loss: 0.7095623738697728, acc: 0.53
+350 - loss: 0.7079889127137832, acc: 0.5457142857142857
+400 - loss: 0.7090752648030311, acc: 0.5225
+450 - loss: 0.7101658389506663, acc: 0.5177777777777778
+500 - loss: 0.7102121351211147, acc: 0.522
+550 - loss: 0.712288650908344, acc: 0.5127272727272727
+600 - loss: 0.717384926748885, acc: 0.5033333333333333
+650 - loss: 0.7171567548449405, acc: 0.5
+700 - loss: 0.7170090919327825, acc: 0.49714285714285716
+750 - loss: 0.7168232674981461, acc: 0.496
+epoch: 5 - train loss: 0.7163452378220577, train acc: 0.4973544973544973
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 5 - test loss: 0.6273828340143031, test acc: 0.8013856812933026
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6993564407638465, acc: 0.6
+100 - loss: 0.7085156027859244, acc: 0.46
+150 - loss: 0.693749371200266, acc: 0.5066666666666667
+200 - loss: 0.7096795252810061, acc: 0.49
+250 - loss: 0.7026142468786412, acc: 0.508
+300 - loss: 0.7077126714057633, acc: 0.5033333333333333
+350 - loss: 0.7006258802640469, acc: 0.5285714285714286
+400 - loss: 0.7082062470768853, acc: 0.51
+450 - loss: 0.7094050443305114, acc: 0.5111111111111111
+500 - loss: 0.7104469375563945, acc: 0.51
+550 - loss: 0.709638110233384, acc: 0.5072727272727273
+600 - loss: 0.708947008938274, acc: 0.505
+650 - loss: 0.7091442214175282, acc: 0.5076923076923077
+700 - loss: 0.7102728218025791, acc: 0.5028571428571429
+750 - loss: 0.7098842723459828, acc: 0.5013333333333333
+epoch: 6 - train loss: 0.7100785291168291, train acc: 0.5
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 6 - test loss: 0.6397959888789304, test acc: 0.8013856812933026
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.7165451335992954, acc: 0.52
+100 - loss: 0.719652293066353, acc: 0.45
+150 - loss: 0.7146574611647302, acc: 0.47333333333333333
+200 - loss: 0.7117716999206748, acc: 0.47
+250 - loss: 0.7033019021782143, acc: 0.5
+300 - loss: 0.703747233107637, acc: 0.5066666666666667
+350 - loss: 0.7052883702783291, acc: 0.5057142857142857
+400 - loss: 0.7098508227501257, acc: 0.5025
+450 - loss: 0.7119406471901181, acc: 0.5022222222222222
+500 - loss: 0.7093612745758511, acc: 0.512
+550 - loss: 0.7083243951794242, acc: 0.5054545454545455
+600 - loss: 0.7074603177697217, acc: 0.5083333333333333
+650 - loss: 0.7045334657838247, acc: 0.5169230769230769
+700 - loss: 0.7060907429473233, acc: 0.51
+750 - loss: 0.7044422490919189, acc: 0.5146666666666667
+epoch: 7 - train loss: 0.7037563548646872, train acc: 0.5158730158730159
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 7 - test loss: 0.5985345129724748, test acc: 0.8013856812933026
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6844219449810077, acc: 0.54
+100 - loss: 0.6988617675810335, acc: 0.55
+150 - loss: 0.7026581816727939, acc: 0.5533333333333333
+200 - loss: 0.6951428518647151, acc: 0.55
+250 - loss: 0.7064003421192132, acc: 0.516
+300 - loss: 0.7028484986619126, acc: 0.5333333333333333
+350 - loss: 0.7043279362844069, acc: 0.5228571428571429
+400 - loss: 0.7046905478450922, acc: 0.52
+450 - loss: 0.7060132927633287, acc: 0.5066666666666667
+500 - loss: 0.7033999812659854, acc: 0.512
+550 - loss: 0.7048775788119306, acc: 0.5036363636363637
+600 - loss: 0.7033882518629694, acc: 0.5033333333333333
+650 - loss: 0.7041764639530486, acc: 0.49538461538461537
+700 - loss: 0.705390521777314, acc: 0.4857142857142857
+750 - loss: 0.706293787941075, acc: 0.47733333333333333
+epoch: 8 - train loss: 0.7062943380318458, train acc: 0.4775132275132275
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 8 - test loss: 0.7170330806887142, test acc: 0.2863741339491917
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6729974920039336, acc: 0.62
+100 - loss: 0.6895870520158024, acc: 0.55
+150 - loss: 0.6935069730845217, acc: 0.5133333333333333
+200 - loss: 0.6976295077711722, acc: 0.5
+250 - loss: 0.6985339476069969, acc: 0.492
+300 - loss: 0.6995512207893371, acc: 0.5033333333333333
+350 - loss: 0.7007158135308857, acc: 0.4942857142857143
+400 - loss: 0.6992450663108329, acc: 0.5025
+450 - loss: 0.6994264040202025, acc: 0.5044444444444445
+500 - loss: 0.7038257936884755, acc: 0.502
+550 - loss: 0.6995172607885274, acc: 0.5163636363636364
+600 - loss: 0.7036525636710135, acc: 0.51
+650 - loss: 0.7039187577967639, acc: 0.5046153846153846
+700 - loss: 0.7032824119383355, acc: 0.5085714285714286
+750 - loss: 0.7022406077043847, acc: 0.5146666666666667
+epoch: 9 - train loss: 0.7021806608564253, train acc: 0.5145502645502645
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 9 - test loss: 0.7089025517675313, test acc: 0.38799076212471134
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.7039107965685466, acc: 0.46
+100 - loss: 0.6984451386077724, acc: 0.5
+150 - loss: 0.6984334954154563, acc: 0.52
+200 - loss: 0.6984794431039083, acc: 0.515
+250 - loss: 0.699291676922522, acc: 0.52
+300 - loss: 0.6998365819020678, acc: 0.5233333333333333
+350 - loss: 0.6991371582936734, acc: 0.5285714285714286
+400 - loss: 0.6993793983802822, acc: 0.5275
+450 - loss: 0.6927190905903129, acc: 0.5488888888888889
+500 - loss: 0.6935640758467189, acc: 0.548
+550 - loss: 0.6969434604260469, acc: 0.5418181818181819
+600 - loss: 0.7024781331832278, acc: 0.535
+650 - loss: 0.7023378990292215, acc: 0.536923076923077
+700 - loss: 0.701812659541542, acc: 0.5357142857142857
+750 - loss: 0.7013536742654234, acc: 0.54
+epoch: 10 - train loss: 0.701004453093314, train acc: 0.5396825396825397
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 10 - test loss: 0.6020118772362837, test acc: 0.8013856812933026
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.7238889008190088, acc: 0.52
+100 - loss: 0.7136450613195864, acc: 0.52
+150 - loss: 0.7107162089156123, acc: 0.49333333333333335
+200 - loss: 0.7135155690943809, acc: 0.475
+250 - loss: 0.7099066565978828, acc: 0.476
+300 - loss: 0.7070594063511135, acc: 0.48333333333333334
+350 - loss: 0.7036970995845363, acc: 0.4857142857142857
+400 - loss: 0.7007082308955451, acc: 0.4975
+450 - loss: 0.7005321619443137, acc: 0.5044444444444445
+500 - loss: 0.7007343352479688, acc: 0.508
+550 - loss: 0.6999635478645909, acc: 0.509090909090909
+600 - loss: 0.701774293050097, acc: 0.505
+650 - loss: 0.7019309836920713, acc: 0.49846153846153846
+700 - loss: 0.7010398876816337, acc: 0.5042857142857143
+750 - loss: 0.6996803558961745, acc: 0.5066666666666667
+epoch: 11 - train loss: 0.6998020391952805, train acc: 0.5066137566137566
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 11 - test loss: 1.1906498045913718, test acc: 0.41570438799076215
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.7022967887051423, acc: 0.48
+100 - loss: 0.7049002375760771, acc: 0.49
+150 - loss: 0.7083193677578643, acc: 0.4866666666666667
+200 - loss: 0.7092689609782115, acc: 0.48
+250 - loss: 0.702938748750616, acc: 0.508
+300 - loss: 0.7007186518834043, acc: 0.5133333333333333
+350 - loss: 0.6968494032044171, acc: 0.5285714285714286
+400 - loss: 0.6986642973131577, acc: 0.52
+450 - loss: 0.6983138772907396, acc: 0.5244444444444445
+500 - loss: 0.6986742116205408, acc: 0.524
+550 - loss: 0.6979906169560544, acc: 0.5254545454545455
+600 - loss: 0.6979594982748109, acc: 0.5233333333333333
+650 - loss: 0.6962032750179823, acc: 0.5292307692307693
+700 - loss: 0.6965414968720604, acc: 0.5285714285714286
+750 - loss: 0.6953937316041522, acc: 0.532
+epoch: 12 - train loss: 0.6954232952888388, train acc: 0.5317460317460317
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 12 - test loss: 0.8211740201132348, test acc: 0.45958429561200925
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6953688471882166, acc: 0.52
+100 - loss: 0.7001102087213704, acc: 0.53
+150 - loss: 0.7004967443752333, acc: 0.5133333333333333
+200 - loss: 0.6833659859159122, acc: 0.555
+250 - loss: 0.6948725770024927, acc: 0.54
+300 - loss: 0.6974487386600644, acc: 0.5266666666666666
+350 - loss: 0.6955378487730454, acc: 0.5314285714285715
+400 - loss: 0.696469416065251, acc: 0.5225
+450 - loss: 0.6968556712635906, acc: 0.5155555555555555
+500 - loss: 0.6966073697649747, acc: 0.514
+550 - loss: 0.6945322095823181, acc: 0.5163636363636364
+600 - loss: 0.6933830859069584, acc: 0.5133333333333333
+650 - loss: 0.6929622782141919, acc: 0.52
+700 - loss: 0.6896402758088905, acc: 0.5242857142857142
+750 - loss: 0.6859443710616234, acc: 0.5333333333333333
+epoch: 13 - train loss: 0.6852870542371987, train acc: 0.5357142857142857
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 13 - test loss: 0.7407308460007884, test acc: 0.46882217090069284
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.7242744124581054, acc: 0.5
+100 - loss: 0.7277156325205635, acc: 0.46
+150 - loss: 0.7179944577244654, acc: 0.48
+200 - loss: 0.7126878044556814, acc: 0.495
+250 - loss: 0.7102234676258478, acc: 0.516
+300 - loss: 0.7051650753553074, acc: 0.5366666666666666
+350 - loss: 0.7072126643661801, acc: 0.52
+400 - loss: 0.7052803725791483, acc: 0.5125
+450 - loss: 0.7039506656046591, acc: 0.5155555555555555
+500 - loss: 0.7014905929624397, acc: 0.518
+550 - loss: 0.6983231691226044, acc: 0.5236363636363637
+600 - loss: 0.6983030900050377, acc: 0.5283333333333333
+650 - loss: 0.696657873756782, acc: 0.5323076923076923
+700 - loss: 0.6926524721016758, acc: 0.5385714285714286
+750 - loss: 0.6955259451799977, acc: 0.54
+epoch: 14 - train loss: 0.6960582899816342, train acc: 0.5396825396825397
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 14 - test loss: 0.5325340060306931, test acc: 0.8013856812933026
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6868775738690438, acc: 0.58
+100 - loss: 0.6903167250817284, acc: 0.53
+150 - loss: 0.6773615606561878, acc: 0.54
+200 - loss: 0.6880457019465827, acc: 0.545
+250 - loss: 0.6935833826748583, acc: 0.536
+300 - loss: 0.6951272342359212, acc: 0.5233333333333333
+350 - loss: 0.6964370636039281, acc: 0.5228571428571429
+400 - loss: 0.6980233943171311, acc: 0.5425
+450 - loss: 0.6929670181031417, acc: 0.5533333333333333
+500 - loss: 0.6877019536320288, acc: 0.56
+550 - loss: 0.6816982380393499, acc: 0.5672727272727273
+600 - loss: 0.6844343123819904, acc: 0.5683333333333334
+650 - loss: 0.6793449389878495, acc: 0.58
+700 - loss: 0.6740912608890431, acc: 0.5871428571428572
+750 - loss: 0.6777621837189841, acc: 0.5826666666666667
+epoch: 15 - train loss: 0.6765902627208255, train acc: 0.5859788359788359
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 15 - test loss: 0.6486607248032178, test acc: 0.6951501154734411
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6785738044337161, acc: 0.58
+100 - loss: 0.652598296375517, acc: 0.61
+150 - loss: 0.6473935912597081, acc: 0.6266666666666667
+200 - loss: 0.6469662750643371, acc: 0.635
+250 - loss: 0.6501148198652363, acc: 0.62
+300 - loss: 0.6463801970701761, acc: 0.63
+350 - loss: 0.6482650960405232, acc: 0.6342857142857142
+400 - loss: 0.6492522241372889, acc: 0.6325
+450 - loss: 0.6466848090148261, acc: 0.64
+500 - loss: 0.6461560960657075, acc: 0.64
+550 - loss: 0.6484752072542301, acc: 0.6345454545454545
+600 - loss: 0.6530318342505214, acc: 0.6283333333333333
+650 - loss: 0.6496649718385804, acc: 0.6338461538461538
+700 - loss: 0.6476048977575349, acc: 0.6357142857142857
+750 - loss: 0.645147708172548, acc: 0.6373333333333333
+epoch: 16 - train loss: 0.6442859244250617, train acc: 0.6388888888888888
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 16 - test loss: 0.6409606320524611, test acc: 0.7644341801385681
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6099659809319897, acc: 0.7
+100 - loss: 0.6331445273468124, acc: 0.67
+150 - loss: 0.6173078007288542, acc: 0.68
+200 - loss: 0.6482347058988124, acc: 0.645
+250 - loss: 0.6436122934080142, acc: 0.664
+300 - loss: 0.6339102387581638, acc: 0.6733333333333333
+350 - loss: 0.6428769299056752, acc: 0.6428571428571429
+400 - loss: 0.6428886141236451, acc: 0.64
+450 - loss: 0.647150494184813, acc: 0.6355555555555555
+500 - loss: 0.6395174476573707, acc: 0.642
+550 - loss: 0.6405540032736735, acc: 0.64
+600 - loss: 0.6471034359726583, acc: 0.6366666666666667
+650 - loss: 0.6509488787098151, acc: 0.6230769230769231
+700 - loss: 0.6501018644616418, acc: 0.63
+750 - loss: 0.6537530556558382, acc: 0.624
+epoch: 17 - train loss: 0.6530652925650225, train acc: 0.6256613756613757
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 17 - test loss: 0.6235804913927283, test acc: 0.8106235565819861
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6585445712133593, acc: 0.6
+100 - loss: 0.6463565251861574, acc: 0.62
+150 - loss: 0.6316809463902356, acc: 0.6533333333333333
+200 - loss: 0.63229190963236, acc: 0.635
+250 - loss: 0.63444604247366, acc: 0.644
+300 - loss: 0.6172767886042012, acc: 0.6633333333333333
+350 - loss: 0.6131742473510919, acc: 0.6685714285714286
+400 - loss: 0.6049065201330823, acc: 0.6725
+450 - loss: 0.6078678385879878, acc: 0.6688888888888889
+500 - loss: 0.6117952147439969, acc: 0.666
+550 - loss: 0.6078338056802385, acc: 0.6654545454545454
+600 - loss: 0.6045341304341459, acc: 0.6683333333333333
+650 - loss: 0.6101581396790957, acc: 0.6676923076923077
+700 - loss: 0.6129728322656304, acc: 0.6671428571428571
+750 - loss: 0.6121478892778942, acc: 0.6706666666666666
+epoch: 18 - train loss: 0.6143187387708181, train acc: 0.667989417989418
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 18 - test loss: 0.6515456502494131, test acc: 0.7297921478060047
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6446618170511738, acc: 0.68
+100 - loss: 0.6186249707316107, acc: 0.69
+150 - loss: 0.6036614503739615, acc: 0.68
+200 - loss: 0.6088600116697725, acc: 0.69
+250 - loss: 0.62755241705456, acc: 0.66
+300 - loss: 0.6379598958497135, acc: 0.65
+350 - loss: 0.6448675910042712, acc: 0.6428571428571429
+400 - loss: 0.6436509278826772, acc: 0.635
+450 - loss: 0.6533791595448903, acc: 0.62
+500 - loss: 0.6545157557421913, acc: 0.62
+550 - loss: 0.6572507505779834, acc: 0.62
+600 - loss: 0.6596357400870646, acc: 0.6033333333333334
+650 - loss: 0.6615803848488576, acc: 0.5984615384615385
+700 - loss: 0.6621261367258874, acc: 0.5928571428571429
+750 - loss: 0.6622184562233084, acc: 0.5946666666666667
+epoch: 19 - train loss: 0.6611607749779931, train acc: 0.5965608465608465
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 19 - test loss: 0.6402723419788932, test acc: 0.7551963048498845
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.643969480396997, acc: 0.66
+100 - loss: 0.6581455435034294, acc: 0.68
+150 - loss: 0.6277713803557713, acc: 0.6933333333333334
+200 - loss: 0.623306105676229, acc: 0.685
+250 - loss: 0.6450394758114157, acc: 0.644
+300 - loss: 0.62163490345247, acc: 0.6733333333333333
+350 - loss: 0.6226217741782342, acc: 0.68
+400 - loss: 0.6145041648639281, acc: 0.68
+450 - loss: 0.6129144255669701, acc: 0.68
+500 - loss: 0.6096460847875503, acc: 0.682
+550 - loss: 0.612554051153909, acc: 0.6690909090909091
+600 - loss: 0.6078595263346972, acc: 0.6733333333333333
+650 - loss: 0.6109905666216793, acc: 0.6676923076923077
+700 - loss: 0.6112811557624399, acc: 0.6657142857142857
+750 - loss: 0.6092928413307297, acc: 0.6653333333333333
+epoch: 20 - train loss: 0.608932772002258, train acc: 0.6653439153439153
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 20 - test loss: 0.6254514102988434, test acc: 0.7505773672055427
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6150228877684893, acc: 0.68
+100 - loss: 0.6167162214799892, acc: 0.67
+150 - loss: 0.6084014782455672, acc: 0.6933333333333334
+200 - loss: 0.569693205402598, acc: 0.73
+250 - loss: 0.5656397408747078, acc: 0.72
+300 - loss: 0.56086259394124, acc: 0.7233333333333334
+350 - loss: 0.5711643828877746, acc: 0.72
+400 - loss: 0.5808288914581479, acc: 0.7075
+450 - loss: 0.5688591345578764, acc: 0.7177777777777777
+500 - loss: 0.5783795837871257, acc: 0.708
+550 - loss: 0.5793889130709844, acc: 0.7018181818181818
+600 - loss: 0.5821003207921002, acc: 0.6933333333333334
+650 - loss: 0.5756284017702243, acc: 0.696923076923077
+700 - loss: 0.5792635294764557, acc: 0.6985714285714286
+750 - loss: 0.5891433172769135, acc: 0.688
+epoch: 21 - train loss: 0.5919537055472796, train acc: 0.6851851851851852
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 21 - test loss: 0.6934419133446172, test acc: 0.6558891454965358
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6359139458958937, acc: 0.64
+100 - loss: 0.5932638921422787, acc: 0.71
+150 - loss: 0.6170035363316098, acc: 0.68
+200 - loss: 0.6114307818434631, acc: 0.68
+250 - loss: 0.5999284311929448, acc: 0.692
+300 - loss: 0.56600588701257, acc: 0.72
+350 - loss: 0.5712813321258288, acc: 0.7085714285714285
+400 - loss: 0.5780521020277113, acc: 0.7
+450 - loss: 0.5807900985247012, acc: 0.6955555555555556
+500 - loss: 0.585553283626983, acc: 0.692
+550 - loss: 0.5862866889696545, acc: 0.6854545454545454
+600 - loss: 0.5837861740981563, acc: 0.69
+650 - loss: 0.585508179199187, acc: 0.6876923076923077
+700 - loss: 0.5916756305984078, acc: 0.6828571428571428
+750 - loss: 0.5915463447469211, acc: 0.684
+epoch: 22 - train loss: 0.5908487347638597, train acc: 0.6838624338624338
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 22 - test loss: 0.6244799590777085, test acc: 0.76905311778291
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.5740747191377755, acc: 0.68
+100 - loss: 0.5517627125107141, acc: 0.68
+150 - loss: 0.5709993927644899, acc: 0.6866666666666666
+200 - loss: 0.5676465559775348, acc: 0.695
+250 - loss: 0.5804419760272345, acc: 0.696
+300 - loss: 0.5670904818305913, acc: 0.7166666666666667
+350 - loss: 0.575506630395909, acc: 0.7114285714285714
+400 - loss: 0.5722892060037796, acc: 0.7125
+450 - loss: 0.5688694057425865, acc: 0.7088888888888889
+500 - loss: 0.5671863929560823, acc: 0.714
+550 - loss: 0.5686020649071747, acc: 0.7145454545454546
+600 - loss: 0.5766531351406881, acc: 0.705
+650 - loss: 0.5733486111450481, acc: 0.7107692307692308
+700 - loss: 0.5789636901180218, acc: 0.71
+750 - loss: 0.5785838774527541, acc: 0.7106666666666667
+epoch: 23 - train loss: 0.5762541382276952, train acc: 0.7129629629629629
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 23 - test loss: 0.6455669962137653, test acc: 0.7274826789838337
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.5965395420928513, acc: 0.68
+100 - loss: 0.6051492663209357, acc: 0.63
+150 - loss: 0.6210191663124263, acc: 0.6466666666666666
+200 - loss: 0.615019782858853, acc: 0.655
+250 - loss: 0.6096119117594632, acc: 0.664
+300 - loss: 0.6082318304975691, acc: 0.6666666666666666
+350 - loss: 0.598522549621836, acc: 0.6685714285714286
+400 - loss: 0.6013342876341786, acc: 0.665
+450 - loss: 0.6031715540174618, acc: 0.6733333333333333
+500 - loss: 0.6050667527517138, acc: 0.674
+550 - loss: 0.6053724313643173, acc: 0.6709090909090909
+600 - loss: 0.6112321801310913, acc: 0.6683333333333333
+650 - loss: 0.6115831223760401, acc: 0.6661538461538462
+700 - loss: 0.6077138370315865, acc: 0.67
+750 - loss: 0.6029553965105368, acc: 0.676
+epoch: 24 - train loss: 0.604165698605599, train acc: 0.6746031746031746
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 24 - test loss: 0.6318019275231214, test acc: 0.766743648960739
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.5961903425845153, acc: 0.68
+100 - loss: 0.5868214794777288, acc: 0.67
+150 - loss: 0.561960084229126, acc: 0.7
+200 - loss: 0.5564134034158963, acc: 0.71
+250 - loss: 0.546919755627056, acc: 0.716
+300 - loss: 0.5703793124065218, acc: 0.71
+350 - loss: 0.5799536301714124, acc: 0.7085714285714285
+400 - loss: 0.5620508306934976, acc: 0.72
+450 - loss: 0.5615623888790197, acc: 0.72
+500 - loss: 0.5574901966391194, acc: 0.724
+550 - loss: 0.5516417299841062, acc: 0.7254545454545455
+600 - loss: 0.5526888562253086, acc: 0.7216666666666667
+650 - loss: 0.5682182874422489, acc: 0.7107692307692308
+700 - loss: 0.5687985249605807, acc: 0.7085714285714285
+750 - loss: 0.568092874329047, acc: 0.7053333333333334
+epoch: 25 - train loss: 0.5687792451704473, train acc: 0.705026455026455
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 25 - test loss: 0.7096526496615938, test acc: 0.5796766743648961
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.45210045841247665, acc: 0.84
+100 - loss: 0.4992779241277526, acc: 0.77
+150 - loss: 0.5390413765672887, acc: 0.7733333333333333
+200 - loss: 0.5289671527375566, acc: 0.775
+250 - loss: 0.5498407016534947, acc: 0.756
+300 - loss: 0.539183791614703, acc: 0.7566666666666667
+350 - loss: 0.5344895388183389, acc: 0.7571428571428571
+400 - loss: 0.519629378565869, acc: 0.775
+450 - loss: 0.5263527028998557, acc: 0.7688888888888888
+500 - loss: 0.529463981002912, acc: 0.762
+550 - loss: 0.5289161493259724, acc: 0.7636363636363637
+600 - loss: 0.5295415818375272, acc: 0.7616666666666667
+650 - loss: 0.5236498007779709, acc: 0.7661538461538462
+700 - loss: 0.5257373463096441, acc: 0.7614285714285715
+750 - loss: 0.5217651016582683, acc: 0.764
+epoch: 26 - train loss: 0.5206421651352703, train acc: 0.7645502645502645
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 26 - test loss: 0.5492892644620435, test acc: 0.8036951501154734
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.5169545850860672, acc: 0.8
+100 - loss: 0.5905462019452258, acc: 0.73
+150 - loss: 0.5733932713409224, acc: 0.7466666666666667
+200 - loss: 0.5742011529627514, acc: 0.73
+250 - loss: 0.5660931886751277, acc: 0.728
+300 - loss: 0.5533681747075829, acc: 0.74
+350 - loss: 0.5709906490125021, acc: 0.7342857142857143
+400 - loss: 0.5610752966976493, acc: 0.7375
+450 - loss: 0.5705088740342235, acc: 0.7333333333333333
+500 - loss: 0.5643157261427467, acc: 0.738
+550 - loss: 0.5627726256461324, acc: 0.7363636363636363
+600 - loss: 0.5746076942851187, acc: 0.7266666666666667
+650 - loss: 0.5680936853996051, acc: 0.7292307692307692
+700 - loss: 0.5722297420746931, acc: 0.7257142857142858
+750 - loss: 0.5740246967375264, acc: 0.7213333333333334
+epoch: 27 - train loss: 0.5719571864117551, train acc: 0.7235449735449735
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 27 - test loss: 0.5580083124269354, test acc: 0.8221709006928406
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6028624027957169, acc: 0.68
+100 - loss: 0.5822242069910242, acc: 0.7
+150 - loss: 0.5716205774482872, acc: 0.6933333333333334
+200 - loss: 0.5648814218263986, acc: 0.715
+250 - loss: 0.5722868520215125, acc: 0.716
+300 - loss: 0.5770064755800218, acc: 0.7166666666666667
+350 - loss: 0.5569966680993159, acc: 0.7371428571428571
+400 - loss: 0.5698515793384621, acc: 0.72
+450 - loss: 0.57842781642759, acc: 0.7111111111111111
+500 - loss: 0.5634862810544692, acc: 0.722
+550 - loss: 0.5664761244538394, acc: 0.7181818181818181
+600 - loss: 0.5695948431746327, acc: 0.7116666666666667
+650 - loss: 0.5731502915307777, acc: 0.7076923076923077
+700 - loss: 0.571677683491636, acc: 0.7142857142857143
+750 - loss: 0.5649368873287642, acc: 0.72
+epoch: 28 - train loss: 0.5649124969537971, train acc: 0.7208994708994709
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 28 - test loss: 0.5601805084768703, test acc: 0.7990762124711316
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.5457476234104913, acc: 0.7
+100 - loss: 0.617894751884172, acc: 0.67
+150 - loss: 0.6231033471393196, acc: 0.6466666666666666
+200 - loss: 0.6157720624516331, acc: 0.655
+250 - loss: 0.6046691192354067, acc: 0.664
+300 - loss: 0.5934534336398789, acc: 0.68
+350 - loss: 0.5804466385163068, acc: 0.6857142857142857
+400 - loss: 0.5715685875143792, acc: 0.6975
+450 - loss: 0.5705151615563234, acc: 0.7022222222222222
+500 - loss: 0.5712878717114422, acc: 0.702
+550 - loss: 0.5696335088882444, acc: 0.7072727272727273
+600 - loss: 0.5733715362582692, acc: 0.7033333333333334
+650 - loss: 0.5796491241130419, acc: 0.7
+700 - loss: 0.5767889790924573, acc: 0.7042857142857143
+750 - loss: 0.5788342036920496, acc: 0.7026666666666667
+epoch: 29 - train loss: 0.5797351304700296, train acc: 0.7023809523809523
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 29 - test loss: 0.570513480134554, test acc: 0.7875288683602771
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.5779689584208343, acc: 0.7
+100 - loss: 0.5856952160138481, acc: 0.72
+150 - loss: 0.6047901905681384, acc: 0.6933333333333334
+200 - loss: 0.5933999778032375, acc: 0.705
+250 - loss: 0.5726025260423829, acc: 0.728
+300 - loss: 0.5679373269604459, acc: 0.7233333333333334
+350 - loss: 0.5673952077827028, acc: 0.7314285714285714
+400 - loss: 0.5703702972707895, acc: 0.7225
+450 - loss: 0.574015596488108, acc: 0.7177777777777777
+500 - loss: 0.5765457947448827, acc: 0.714
+550 - loss: 0.5751083424207398, acc: 0.7127272727272728
+600 - loss: 0.5787142119324415, acc: 0.71
+650 - loss: 0.5642135056887513, acc: 0.72
+700 - loss: 0.5665699820485703, acc: 0.7214285714285714
+750 - loss: 0.5681064517504226, acc: 0.72
+epoch: 30 - train loss: 0.5669345646085585, train acc: 0.7208994708994709
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 30 - test loss: 0.6724269432797787, test acc: 0.7113163972286374
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.556160480582143, acc: 0.74
+100 - loss: 0.5855044354909702, acc: 0.73
+150 - loss: 0.529256599293008, acc: 0.7666666666666667
+200 - loss: 0.5252034385668587, acc: 0.755
+250 - loss: 0.5221036397599584, acc: 0.752
+300 - loss: 0.5260194986605128, acc: 0.75
+350 - loss: 0.5317175532856896, acc: 0.7428571428571429
+400 - loss: 0.5289138837778196, acc: 0.745
+450 - loss: 0.5316737186202384, acc: 0.7444444444444445
+500 - loss: 0.5255464151004942, acc: 0.744
+550 - loss: 0.5276873342101319, acc: 0.7436363636363637
+600 - loss: 0.5251754286374226, acc: 0.75
+650 - loss: 0.524526456983106, acc: 0.7538461538461538
+700 - loss: 0.5296404840887682, acc: 0.7542857142857143
+750 - loss: 0.5216067835617475, acc: 0.7573333333333333
+epoch: 31 - train loss: 0.5201547097935268, train acc: 0.7592592592592593
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 31 - test loss: 0.6570173241963645, test acc: 0.6859122401847575
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.4906607703218278, acc: 0.72
+100 - loss: 0.5459802246946829, acc: 0.72
+150 - loss: 0.573174198592013, acc: 0.7133333333333334
+200 - loss: 0.527179613608903, acc: 0.74
+250 - loss: 0.516192488736329, acc: 0.744
+300 - loss: 0.5400861159840731, acc: 0.72
+350 - loss: 0.5492459049970796, acc: 0.7142857142857143
+400 - loss: 0.5426070964716775, acc: 0.725
+450 - loss: 0.5561881770250461, acc: 0.7155555555555555
+500 - loss: 0.5577182524181392, acc: 0.708
+550 - loss: 0.5682129081562588, acc: 0.6981818181818182
+600 - loss: 0.5648274464434646, acc: 0.7
+650 - loss: 0.5535642691077202, acc: 0.7123076923076923
+700 - loss: 0.552345448043896, acc: 0.7142857142857143
+750 - loss: 0.5420643323975086, acc: 0.7213333333333334
+epoch: 32 - train loss: 0.5419459011978064, train acc: 0.7195767195767195
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 32 - test loss: 0.63421028276841, test acc: 0.792147806004619
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.6096420685420726, acc: 0.7
+100 - loss: 0.6279874751764565, acc: 0.68
+150 - loss: 0.584681547175165, acc: 0.72
+200 - loss: 0.5421090343203597, acc: 0.75
+250 - loss: 0.5326588431928889, acc: 0.752
+300 - loss: 0.5411369404810764, acc: 0.7533333333333333
+350 - loss: 0.5319944324633643, acc: 0.7542857142857143
+400 - loss: 0.5179640182434343, acc: 0.7625
+450 - loss: 0.5077353310212867, acc: 0.7688888888888888
+500 - loss: 0.5107477921029907, acc: 0.768
+550 - loss: 0.5088927245295878, acc: 0.7654545454545455
+600 - loss: 0.5143112330232971, acc: 0.7616666666666667
+650 - loss: 0.5070026832724993, acc: 0.7692307692307693
+700 - loss: 0.513324922176728, acc: 0.7657142857142857
+750 - loss: 0.5187178311504006, acc: 0.76
+epoch: 33 - train loss: 0.519159569009743, train acc: 0.7592592592592593
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 33 - test loss: 0.6390323983392235, test acc: 0.7344110854503464
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.4439763859902775, acc: 0.82
+100 - loss: 0.4569342829300939, acc: 0.82
+150 - loss: 0.4747269515761483, acc: 0.8
+200 - loss: 0.46964942319758957, acc: 0.81
+250 - loss: 0.48924024750533174, acc: 0.804
+300 - loss: 0.4886858607647981, acc: 0.7966666666666666
+350 - loss: 0.49454565657591826, acc: 0.7857142857142857
+400 - loss: 0.5036172341752178, acc: 0.78
+450 - loss: 0.5084595616074777, acc: 0.7733333333333333
+500 - loss: 0.4991158361105448, acc: 0.778
+550 - loss: 0.49603076774332655, acc: 0.78
+600 - loss: 0.493617555718365, acc: 0.7783333333333333
+650 - loss: 0.49650326003831774, acc: 0.7753846153846153
+700 - loss: 0.4929589148234214, acc: 0.7757142857142857
+750 - loss: 0.49663618370707885, acc: 0.7706666666666667
+epoch: 34 - train loss: 0.49544364953961606, train acc: 0.7711640211640212
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 34 - test loss: 0.6090398898941377, test acc: 0.7551963048498845
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.5333922753539437, acc: 0.7
+100 - loss: 0.5185441181889299, acc: 0.71
+150 - loss: 0.520415138722212, acc: 0.7266666666666667
+200 - loss: 0.5205287830649112, acc: 0.735
+250 - loss: 0.5037995248353213, acc: 0.756
+300 - loss: 0.4995874863117489, acc: 0.7566666666666667
+350 - loss: 0.4930497672762263, acc: 0.7628571428571429
+400 - loss: 0.48804562593816814, acc: 0.7625
+450 - loss: 0.4857824241046791, acc: 0.7644444444444445
+500 - loss: 0.4850741552846487, acc: 0.766
+550 - loss: 0.4953220091320245, acc: 0.7581818181818182
+600 - loss: 0.5072669225685845, acc: 0.7416666666666667
+650 - loss: 0.5112157843055317, acc: 0.7446153846153846
+700 - loss: 0.5222770853969293, acc: 0.7414285714285714
+750 - loss: 0.5181191383198909, acc: 0.7493333333333333
+epoch: 35 - train loss: 0.5194183193802112, train acc: 0.7486772486772487
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 35 - test loss: 0.688499897008869, test acc: 0.7413394919168591
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.49100211563221796, acc: 0.8
+100 - loss: 0.43069944406529737, acc: 0.83
+150 - loss: 0.414639944112962, acc: 0.8333333333333334
+200 - loss: 0.425151620761001, acc: 0.81
+250 - loss: 0.46337958822636194, acc: 0.788
+300 - loss: 0.4762556590363105, acc: 0.77
+350 - loss: 0.4739212765336766, acc: 0.7657142857142857
+400 - loss: 0.47310706683434794, acc: 0.77
+450 - loss: 0.4803973373156055, acc: 0.7688888888888888
+500 - loss: 0.47581918129318435, acc: 0.774
+550 - loss: 0.48798400189670565, acc: 0.7654545454545455
+600 - loss: 0.4973039163049477, acc: 0.7566666666666667
+650 - loss: 0.4933747666725833, acc: 0.76
+700 - loss: 0.49245534246438116, acc: 0.76
+750 - loss: 0.496854279464392, acc: 0.76
+epoch: 36 - train loss: 0.49820544150147783, train acc: 0.7592592592592593
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 36 - test loss: 0.818942458163988, test acc: 0.5196304849884527
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.5330813989650235, acc: 0.76
+100 - loss: 0.5476993493965356, acc: 0.73
+150 - loss: 0.5254911345762312, acc: 0.74
+200 - loss: 0.5314685995576542, acc: 0.74
+250 - loss: 0.5164818292947287, acc: 0.748
+300 - loss: 0.5222449383248106, acc: 0.7533333333333333
+350 - loss: 0.5159348475502314, acc: 0.7542857142857143
+400 - loss: 0.49318373831249906, acc: 0.765
+450 - loss: 0.4802290300799377, acc: 0.7755555555555556
+500 - loss: 0.47319297224887197, acc: 0.782
+550 - loss: 0.47718556180310967, acc: 0.7763636363636364
+600 - loss: 0.486757010433125, acc: 0.7733333333333333
+650 - loss: 0.4914335391786465, acc: 0.7676923076923077
+700 - loss: 0.4850687551861155, acc: 0.7728571428571429
+750 - loss: 0.4847929969883548, acc: 0.7746666666666666
+epoch: 37 - train loss: 0.48347295926058154, train acc: 0.7751322751322751
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 37 - test loss: 0.5932607400622752, test acc: 0.7990762124711316
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.39301506446078016, acc: 0.82
+100 - loss: 0.3431599502458251, acc: 0.88
+150 - loss: 0.3618628948632729, acc: 0.8733333333333333
+200 - loss: 0.4029285374054109, acc: 0.85
+250 - loss: 0.44609952501329675, acc: 0.816
+300 - loss: 0.4602942151001341, acc: 0.8
+350 - loss: 0.45080594460582923, acc: 0.8085714285714286
+400 - loss: 0.4550604351290559, acc: 0.8075
+450 - loss: 0.4616053117058656, acc: 0.7955555555555556
+500 - loss: 0.45241732605544493, acc: 0.8
+550 - loss: 0.4493917079233075, acc: 0.8018181818181818
+600 - loss: 0.4518653678447405, acc: 0.7983333333333333
+650 - loss: 0.45958140671020165, acc: 0.7923076923076923
+700 - loss: 0.45687612228178337, acc: 0.79
+750 - loss: 0.45951428048962645, acc: 0.7933333333333333
+epoch: 38 - train loss: 0.46017502115657805, train acc: 0.7923280423280423
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 38 - test loss: 0.6151235965132185, test acc: 0.7228637413394919
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.435348683380526, acc: 0.74
+100 - loss: 0.45470745853328576, acc: 0.75
+150 - loss: 0.45778633944586117, acc: 0.78
+200 - loss: 0.47607711802128205, acc: 0.785
+250 - loss: 0.46602129863154496, acc: 0.792
+300 - loss: 0.4656406468070808, acc: 0.79
+350 - loss: 0.4545044233420441, acc: 0.7942857142857143
+400 - loss: 0.4528388354262431, acc: 0.8
+450 - loss: 0.4451411265966989, acc: 0.8022222222222222
+500 - loss: 0.48308778877585057, acc: 0.774
+550 - loss: 0.4962905782573694, acc: 0.7581818181818182
+600 - loss: 0.4895107430211665, acc: 0.76
+650 - loss: 0.4835213945342796, acc: 0.7676923076923077
+700 - loss: 0.486104444670619, acc: 0.7714285714285715
+750 - loss: 0.4799143727844581, acc: 0.7733333333333333
+epoch: 39 - train loss: 0.47917070282286933, train acc: 0.7738095238095238
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 39 - test loss: 0.6190119036309193, test acc: 0.6859122401847575
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.5597191204768696, acc: 0.76
+100 - loss: 0.507201440511001, acc: 0.76
+150 - loss: 0.5116586058592798, acc: 0.7866666666666666
+200 - loss: 0.46931010118949457, acc: 0.815
+250 - loss: 0.4830479386222389, acc: 0.804
+300 - loss: 0.49537479115345046, acc: 0.79
+350 - loss: 0.4835123433019982, acc: 0.8
+400 - loss: 0.47620943955277945, acc: 0.8075
+450 - loss: 0.45726273916981225, acc: 0.82
+500 - loss: 0.45822343603113497, acc: 0.816
+550 - loss: 0.44949015758713734, acc: 0.82
+600 - loss: 0.46387498635691116, acc: 0.8066666666666666
+650 - loss: 0.4586714219564081, acc: 0.8123076923076923
+700 - loss: 0.46256152647825743, acc: 0.8085714285714286
+750 - loss: 0.4634978620158273, acc: 0.808
+epoch: 40 - train loss: 0.4623111586940769, train acc: 0.8095238095238095
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 40 - test loss: 0.549029669010277, test acc: 0.8060046189376443
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.626163700154435, acc: 0.68
+100 - loss: 0.5771450591198635, acc: 0.72
+150 - loss: 0.5600320600795552, acc: 0.7266666666666667
+200 - loss: 0.5146330431875341, acc: 0.75
+250 - loss: 0.5448474944052631, acc: 0.728
+300 - loss: 0.5621524043010404, acc: 0.7066666666666667
+350 - loss: 0.5525283691318321, acc: 0.7171428571428572
+400 - loss: 0.5493497126190886, acc: 0.71
+450 - loss: 0.5383061023685071, acc: 0.72
+500 - loss: 0.5329031657434519, acc: 0.73
+550 - loss: 0.5284176912071699, acc: 0.7363636363636363
+600 - loss: 0.5195778567740835, acc: 0.745
+650 - loss: 0.5151109934321639, acc: 0.7492307692307693
+700 - loss: 0.516839241262167, acc: 0.7485714285714286
+750 - loss: 0.5085471866451942, acc: 0.7533333333333333
+epoch: 41 - train loss: 0.5111589477361964, train acc: 0.7526455026455027
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 41 - test loss: 0.4857842241578301, test acc: 0.7806004618937644
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.3695082804245517, acc: 0.84
+100 - loss: 0.39946823155716465, acc: 0.84
+150 - loss: 0.4333413802664895, acc: 0.82
+200 - loss: 0.4122737850276046, acc: 0.83
+250 - loss: 0.4065900161563473, acc: 0.844
+300 - loss: 0.4245349853336072, acc: 0.83
+350 - loss: 0.4296657180649185, acc: 0.8171428571428572
+400 - loss: 0.44231088492442255, acc: 0.8075
+450 - loss: 0.43761986875766085, acc: 0.8111111111111111
+500 - loss: 0.43212674019370884, acc: 0.818
+550 - loss: 0.437339650832657, acc: 0.8163636363636364
+600 - loss: 0.4276743849773115, acc: 0.8183333333333334
+650 - loss: 0.4388935224637319, acc: 0.8107692307692308
+700 - loss: 0.43210504041587666, acc: 0.8157142857142857
+750 - loss: 0.4356060017194736, acc: 0.8146666666666667
+epoch: 42 - train loss: 0.43391953505362085, train acc: 0.8161375661375662
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 42 - test loss: 0.9889624591354166, test acc: 0.49191685912240185
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.45999145562897764, acc: 0.84
+100 - loss: 0.5125038290021569, acc: 0.81
+150 - loss: 0.4627357048737674, acc: 0.8066666666666666
+200 - loss: 0.4222194455093144, acc: 0.83
+250 - loss: 0.445073282549872, acc: 0.82
+300 - loss: 0.4509300246943649, acc: 0.81
+350 - loss: 0.44436474127257125, acc: 0.8114285714285714
+400 - loss: 0.4470169196598384, acc: 0.81
+450 - loss: 0.4474996285418483, acc: 0.8111111111111111
+500 - loss: 0.4416094901315381, acc: 0.812
+550 - loss: 0.4346462807483776, acc: 0.8090909090909091
+600 - loss: 0.4262746700255816, acc: 0.8133333333333334
+650 - loss: 0.42512001169350766, acc: 0.8123076923076923
+700 - loss: 0.42646183045666636, acc: 0.8128571428571428
+750 - loss: 0.4265646094242412, acc: 0.8106666666666666
+epoch: 43 - train loss: 0.431500512284713, train acc: 0.8095238095238095
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 43 - test loss: 0.5163242863996895, test acc: 0.7990762124711316
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.5462280354324904, acc: 0.68
+100 - loss: 0.45353140931560093, acc: 0.75
+150 - loss: 0.4675955313853908, acc: 0.76
+200 - loss: 0.45827031633655, acc: 0.775
+250 - loss: 0.45388340811944505, acc: 0.788
+300 - loss: 0.4390216257143686, acc: 0.8
+350 - loss: 0.42484524014535274, acc: 0.8085714285714286
+400 - loss: 0.41680709658878196, acc: 0.8125
+450 - loss: 0.41236706077325846, acc: 0.8222222222222222
+500 - loss: 0.4110123000131411, acc: 0.822
+550 - loss: 0.4099537837608078, acc: 0.8254545454545454
+600 - loss: 0.4116691124219291, acc: 0.8233333333333334
+650 - loss: 0.4198259232409562, acc: 0.82
+700 - loss: 0.42923772932174775, acc: 0.8185714285714286
+750 - loss: 0.4267526588296996, acc: 0.82
+epoch: 44 - train loss: 0.4249349279218448, train acc: 0.8214285714285714
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 44 - test loss: 0.581212521631478, test acc: 0.7829099307159353
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.4995226155781822, acc: 0.74
+100 - loss: 0.45620611858833804, acc: 0.82
+150 - loss: 0.44088470375585603, acc: 0.7933333333333333
+200 - loss: 0.44016195099160726, acc: 0.795
+250 - loss: 0.42550451015734764, acc: 0.812
+300 - loss: 0.40149599435641337, acc: 0.8233333333333334
+350 - loss: 0.40234320894457193, acc: 0.8171428571428572
+400 - loss: 0.41534143143606916, acc: 0.8125
+450 - loss: 0.3995468355166404, acc: 0.82
+500 - loss: 0.39044622817497476, acc: 0.83
+550 - loss: 0.38787693859652, acc: 0.8309090909090909
+600 - loss: 0.3848651712643952, acc: 0.8333333333333334
+650 - loss: 0.3722917951140708, acc: 0.8430769230769231
+700 - loss: 0.3858307588180466, acc: 0.8357142857142857
+750 - loss: 0.39340759695947514, acc: 0.8293333333333334
+epoch: 45 - train loss: 0.39283425670356653, train acc: 0.8293650793650794
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 45 - test loss: 0.6060229180092288, test acc: 0.815242494226328
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.3772867338003378, acc: 0.86
+100 - loss: 0.3596401483215457, acc: 0.86
+150 - loss: 0.37384793234083796, acc: 0.8666666666666667
+200 - loss: 0.3762131903640584, acc: 0.85
+250 - loss: 0.3796307849934811, acc: 0.836
+300 - loss: 0.373474670520781, acc: 0.8433333333333334
+350 - loss: 0.35606400026456947, acc: 0.8485714285714285
+400 - loss: 0.3604865041666564, acc: 0.8475
+450 - loss: 0.36177447900389753, acc: 0.8466666666666667
+500 - loss: 0.3452840927615399, acc: 0.856
+550 - loss: 0.3495795772631137, acc: 0.8545454545454545
+600 - loss: 0.3502965925666892, acc: 0.8533333333333334
+650 - loss: 0.3674616336780708, acc: 0.8461538461538461
+700 - loss: 0.37815913203158663, acc: 0.8371428571428572
+750 - loss: 0.3832869625449152, acc: 0.8373333333333334
+epoch: 46 - train loss: 0.3839992691977544, train acc: 0.8346560846560847
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 46 - test loss: 0.5916232120452041, test acc: 0.7759815242494227
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.48933057247842554, acc: 0.82
+100 - loss: 0.45963311733208706, acc: 0.8
+150 - loss: 0.41776638586880765, acc: 0.8133333333333334
+200 - loss: 0.4357347283957525, acc: 0.82
+250 - loss: 0.44816886000640094, acc: 0.808
+300 - loss: 0.43983747771388815, acc: 0.8033333333333333
+350 - loss: 0.4227200833891244, acc: 0.8142857142857143
+400 - loss: 0.4149130922869063, acc: 0.82
+450 - loss: 0.40906114474201616, acc: 0.8155555555555556
+500 - loss: 0.3927028279287466, acc: 0.824
+550 - loss: 0.387300535626231, acc: 0.8272727272727273
+600 - loss: 0.40091190189302794, acc: 0.8166666666666667
+650 - loss: 0.3968912808022058, acc: 0.8184615384615385
+700 - loss: 0.4026511095761761, acc: 0.8157142857142857
+750 - loss: 0.400021082485127, acc: 0.82
+epoch: 47 - train loss: 0.39870554589545437, train acc: 0.8201058201058201
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 47 - test loss: 0.6069426369244204, test acc: 0.745958429561201
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.4365073332866316, acc: 0.8
+100 - loss: 0.4329291917262767, acc: 0.8
+150 - loss: 0.4835295112357616, acc: 0.7933333333333333
+200 - loss: 0.4478771476914451, acc: 0.81
+250 - loss: 0.4217058747360929, acc: 0.824
+300 - loss: 0.39149694514941275, acc: 0.8433333333333334
+350 - loss: 0.38996286199145175, acc: 0.8371428571428572
+400 - loss: 0.3897837278164297, acc: 0.84
+450 - loss: 0.3895452689299139, acc: 0.84
+500 - loss: 0.4006373828489922, acc: 0.836
+550 - loss: 0.4036054830206008, acc: 0.8345454545454546
+600 - loss: 0.3979906138355154, acc: 0.8383333333333334
+650 - loss: 0.39801023861959905, acc: 0.8369230769230769
+700 - loss: 0.3897740237918515, acc: 0.8414285714285714
+750 - loss: 0.3903539824445149, acc: 0.84
+epoch: 48 - train loss: 0.3893044275894488, train acc: 0.8412698412698413
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 48 - test loss: 0.7049545723984949, test acc: 0.7321016166281755
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.5762639014783015, acc: 0.76
+100 - loss: 0.4732751036816174, acc: 0.8
+150 - loss: 0.4389600119198854, acc: 0.82
+200 - loss: 0.43855319765396056, acc: 0.81
+250 - loss: 0.40385907796537035, acc: 0.824
+300 - loss: 0.41357890264771296, acc: 0.82
+350 - loss: 0.4245013711403636, acc: 0.8114285714285714
+400 - loss: 0.4213604616794211, acc: 0.8175
+450 - loss: 0.4118252441903979, acc: 0.8244444444444444
+500 - loss: 0.4056442760890016, acc: 0.83
+550 - loss: 0.40709374380897445, acc: 0.8236363636363636
+600 - loss: 0.4026601645690205, acc: 0.8283333333333334
+650 - loss: 0.4048615801011404, acc: 0.8246153846153846
+700 - loss: 0.4019509459491856, acc: 0.8271428571428572
+750 - loss: 0.389483748713332, acc: 0.836
+epoch: 49 - train loss: 0.38770824941657495, train acc: 0.8359788359788359
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 49 - test loss: 0.6395691676042841, test acc: 0.7575057736720554
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+50 - loss: 0.436434621223261, acc: 0.82
+100 - loss: 0.40367780623926847, acc: 0.85
+150 - loss: 0.40394138947117697, acc: 0.8533333333333334
+200 - loss: 0.3691871239820166, acc: 0.86
+250 - loss: 0.3550573800676005, acc: 0.868
+300 - loss: 0.3497020160119769, acc: 0.8666666666666667
+350 - loss: 0.36316618838653475, acc: 0.8542857142857143
+400 - loss: 0.3774282552752449, acc: 0.845
+450 - loss: 0.3918580116846655, acc: 0.8288888888888889
+500 - loss: 0.3953048405905934, acc: 0.83
+550 - loss: 0.39132936347725955, acc: 0.8345454545454546
+600 - loss: 0.39829660228146135, acc: 0.8283333333333334
+650 - loss: 0.4029179257509712, acc: 0.8261538461538461
+700 - loss: 0.4009026560788749, acc: 0.8257142857142857
+750 - loss: 0.40455126185865387, acc: 0.828
+epoch: 50 - train loss: 0.4025887421277306, train acc: 0.8293650793650794
+D:\PyCharm\ML4Health_Coughvid\venv\lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+epoch: 50 - test loss: 0.63481281473853, test acc: 0.7644341801385681
+
+wandb: Waiting for W&B process to finish, PID 8640... (success).
+wandb:                                                                                
+wandb: Run history:
+wandb:   Train Accuracy ▂▂▂▃▂▂▁▁▂▂▂▂▄▄▅▅▆▅▆▅▇▆▆▆▆▆█▆▇▇▇▇▆▇▇▇████
+wandb:       Train Loss ██▇▇▇▇▇▇▇▇▇▇▆▆▅▅▄▅▅▅▄▄▄▄▄▄▂▃▃▃▂▃▄▂▃▂▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:   Train Accuracy 0.828
+wandb:       Train Loss 0.40455
+wandb: 
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Synced fast-wind-2: https://wandb.ai/cassandralee/ML4Health_Coughvid-coughvid/runs/158prh7u
+wandb: Find logs at: .\wandb\run-20211128_232230-158prh7u\logs\debug.log
+wandb: 
+
+Process finished with exit code 0
