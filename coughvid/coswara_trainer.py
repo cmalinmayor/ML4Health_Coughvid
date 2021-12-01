@@ -6,19 +6,25 @@ from .evaluate_model import Evaluator
 import torch
 from torch.utils.data import DataLoader, SubsetRandomSampler
 from torchvision.models import resnet50, resnet18
+import os
+import logging
 
 from sklearn.model_selection import train_test_split
 import copy
 
 import wandb
 
+logger = logging.getLogger(__name__)
+
 
 class CoswaraTrainer:
-    def __init__(self, data_dir, batch_size=1, num_workers=1):
+    def __init__(self, data_dir, batch_size=1, num_workers=1, model_dir='trained_models'):
         self.data_dir = data_dir  # './data/coswara/'
         self.metadata_file = 'filtered_data.csv'
         self.batch_size = batch_size
         self.num_workers = num_workers
+        self.model_dir = model_dir
+        os.makedirs(model_dir, exist_ok=True)
 
     def load_model(self, model_type='resnet18',
                    optim=torch.optim.Adam, loss=torch.nn.BCELoss):
@@ -186,5 +192,7 @@ class CoswaraTrainer:
             if epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
-                torch.save(best_model_wts,
-                           f"resnet18_coswara{str_date_time}.pth")
+                filename = os.path.join(self.model_dir,
+                                        f"resnet18_coswara_epoch_{i}_{str_date_time}.pth")
+                logger.info(f"Saving model to {filename}")
+                torch.save(best_model_wts, filename)
