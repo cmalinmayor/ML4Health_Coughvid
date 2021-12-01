@@ -183,7 +183,6 @@ class CoswaraTrainer:
             'Test Loss'
             ])
 
-        
         str_date_time = datetime.now().strftime("%d%m%Y%H%M%S")
 
         for i in range(num_epochs):
@@ -201,13 +200,17 @@ class CoswaraTrainer:
 
             #logging
             csv_df.loc[i,'Epoch'] = i+1
-            csv_df.loc[i,'Training Accuracy' if phase=='train' else 'Test Accuracy'] = epoch_acc
-            csv_df.loc[i,'Training Loss' if phase=='train' else 'Test Loss'] = epoch_loss
+            csv_df.loc[i,'Training Accuracy' ] = epoch_acc
+            csv_df.loc[i,'Training Loss' ] = epoch_loss
 
             # test step
             labels, predictions = self.test_step(model, dataloaders['test'])
             evaluator = Evaluator(labels, predictions)
             evaluator.print_report()
+            #logging
+            csv_df.loc[i,'Epoch'] = i+1
+            csv_df.loc[i,'Test Accuracy' ] = epoch_acc
+            csv_df.loc[i,'Test Loss' ] = epoch_loss
             # Deep copy the model
             if epoch_acc > best_acc:
                 best_acc = epoch_acc
