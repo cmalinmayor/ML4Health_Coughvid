@@ -1,0 +1,12 @@
+numpy
+scipy
+pandas
+
+pytorch
+torchaudio
+git+git://github.com/denfed/leaf-audio-pytorch
+
+librosa
+pydub
+
+wandb
