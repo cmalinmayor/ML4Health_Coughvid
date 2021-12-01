@@ -1,6 +1,8 @@
 import numpy as np
 import sklearn.metrics as metrics
 import logging
+from datetime import datetime
+
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +22,13 @@ class Evaluator:
 
     def get_auc_roc(self):
         return metrics.roc_auc_score(self.labels, self.predictions)
+
+    def get_roc(self):
+        return metrics.roc_auc(self.labels, self.predictions)
+
+    def get_prc(self):
+        return metrics.precision_recall_curve(self.labels, self.predictions)
+
 
     def get_confusion_matrix(self, threshold):
         predicted_labels = np.where(self.predictions > threshold, 1, 0)
@@ -43,7 +52,37 @@ class Evaluator:
         auc_roc = self.get_auc_roc()
         confusion_matrix = self.get_confusion_matrix(threshold)
         print(f"Accuracy at threshold {threshold}: {accuracy}")
-        print(f"Balanced ccuracy at threshold {threshold}: "
+        print(f"Balanced accuracy at threshold {threshold}: "
               f"{balanced_accuracy}")
         print(f"Confusion matrix at threshold {threshold}: {confusion_matrix}")
         print(f"AUC-ROC: {auc_roc}")
+
+    def log_roc(self,prefix='resnet18'):
+        fpr,tpr,_ = self.get_roc()
+
+        str_date_time = datetime.now().strftime("%d%m%Y%H%M%S")
+
+
+        name = prefix+ '_roc_' + str_date_time + '.csv'
+
+        with open(name, 'w') as csvfile:
+            csvwriter = csv.writer(csvfile)
+
+            csvwriter.writerow(['False Positive Rate','True Positive Rate'])
+            for (f,t) in zip(fpr,tpr):
+                csvwriter.writerow([f,t])
+
+    def log_prc(self,prefix='resnet18'):
+        p,r,_ = self.get_roc()
+
+        str_date_time = datetime.now().strftime("%d%m%Y%H%M%S")
+
+
+        name = prefix+ '_prc_' + str_date_time + '.csv'
+
+        with open(name, 'w') as csvfile:
+            csvwriter = csv.writer(csvfile)
+
+            csvwriter.writerow(['Precision','Recall'])
+            for (f,t) in zip(p,r):
+                csvwriter.writerow([f,t])
