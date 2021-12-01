@@ -5,4 +5,5 @@ if __name__ == '__main__':
     trainer = CoswaraTrainer(data_dir)
     trainer.train_model(
             model_type='resnet18',
-            num_epochs=50)
+            num_epochs=100,
+            use_wandb=False)
