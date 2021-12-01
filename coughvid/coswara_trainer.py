@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from datetime import datetime
 
 from coughvid.pytorch import CoswaraDataset, SubsetWeightedRandomSampler, compute_weights
@@ -104,7 +105,7 @@ class CoswaraTrainer:
 
     def training_step(
             self, model, dataloader, optimizer, criterion,
-            use_wandb=True):
+            use_wandb=False):
         model.train()
         samples = 0
         loss_sum = 0
@@ -152,7 +153,7 @@ class CoswaraTrainer:
             dataloaders,
             model_type='resnet18',
             num_epochs=50,
-            use_wandb=True):
+            use_wandb=False):
 
         model, optimizer, criterion = self.load_model(model_type)
 
@@ -171,6 +172,18 @@ class CoswaraTrainer:
         best_model_wts = copy.deepcopy(model.state_dict())
         best_acc = 0.0
 
+        # create dataframe for storing stats
+        csv_df = pd.DataFrame(columns=[
+            'Epoch',
+            'Training Accuracy',
+            'Test Accuracy',
+            'Training Loss',
+            'Test Loss'
+            ])
+
+        
+        str_date_time = datetime.now().strftime("%d%m%Y%H%M%S")
+
         for i in range(num_epochs):
             # train step
             loss_sum, samples, correct_sum = self.training_step(
@@ -184,12 +197,16 @@ class CoswaraTrainer:
             print("epoch: {} - train loss: {}, train acc: {}".format(
                     i + 1, epoch_loss, epoch_acc))
 
+            #logging
+            csv_df.loc[i,'Epoch'] = i+1
+            csv_df.loc[i,'Training Accuracy' if phase=='train' else 'Test Accuracy'] = epoch_acc
+            csv_df.loc[i,'Training Loss' if phase=='train' else 'Test Loss'] = epoch_loss
+
             # test step
             labels, predictions = self.test_step(model, dataloaders['test'])
             evaluator = Evaluator(labels, predictions)
             evaluator.print_report()
             # Deep copy the model
-            str_date_time = datetime.now().strftime("%d%m%Y%H%M%S")
             if epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
@@ -197,3 +214,9 @@ class CoswaraTrainer:
                                         f"resnet18_coswara_epoch_{i}_{str_date_time}.pth")
                 logger.info(f"Saving model to {filename}")
                 torch.save(best_model_wts, filename)
+
+        # finish logging
+        name = model_type + str_date_time + '.csv'
+        csvfile = open(name, 'w')
+        csv_df.to_csv(csvfile, index=False)
+        csvfile.close()
