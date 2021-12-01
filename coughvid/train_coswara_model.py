@@ -19,13 +19,15 @@ logger = logging.getLogger(__name__)
 
 
 class ModelConfig:
-    def __init__(self, data_dir, batch_size=1, num_workers=1, model_dir='trained_models'):
+    def __init__(self, data_dir, batch_size=1, num_workers=1, model_dir='trained_models', logging_dir='logs'):
         self.data_dir = data_dir  # './data/coswara/'
         self.metadata_file = 'filtered_data.csv'
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.model_dir = model_dir
+        logging_dir=logging_dir
         os.makedirs(model_dir, exist_ok=True)
+        os.makedirs(logging_dir, exist_ok=True)
 
 
 def load_model(model_config, model_type='resnet18',
