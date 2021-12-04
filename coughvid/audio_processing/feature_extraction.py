@@ -91,3 +91,13 @@ def generate_feature_matrix(frames,sample_rate,frame_length):
     features = np.concatenate((mfcc, mfcc_delta, mfcc_delta2, other_feat))
 
     return features
+
+
+def energy_filter(audio, window, threshold):
+    window = int(window)
+    new_audio = []
+    for i in range(0, len(audio), window):
+        segment = audio[i: min(i+window, len(audio))]
+        if np.any(segment > threshold):
+            new_audio.extend(list(segment))
+    return np.array(new_audio, dtype=audio.dtype)

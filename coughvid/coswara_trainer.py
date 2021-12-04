@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 
 from coughvid.pytorch import CoswaraDataset, SubsetWeightedRandomSampler, compute_weights
-from evaluate_model import Evaluator
+from .evaluate_model import Evaluator
 import torch
 from torch.utils.data import DataLoader, SubsetRandomSampler
 from torchvision.models import resnet50, resnet18
@@ -19,7 +19,8 @@ logger = logging.getLogger(__name__)
 
 
 class CoswaraTrainer:
-    def __init__(self, data_dir, batch_size=1, num_workers=1, model_dir='trained_models', leaf=False, augmentation=False, normalization=True):
+    def __init__(self,
+            data_dir, batch_size=1, num_workers=1, model_dir='trained_models', leaf=False, augmentation=False, normalization=True, energy_filter=False):
         self.data_dir = data_dir  # './data/coswara/'
         self.metadata_file = 'filtered_data.csv'
         self.batch_size = batch_size
@@ -28,6 +29,7 @@ class CoswaraTrainer:
         self.leaf=leaf
         self.augmentation=augmentation
         self.normalization=normalization
+        self.energy_filter = energy_filter
         os.makedirs(model_dir, exist_ok=True)
 
     def load_model(self, model_type='resnet18',
@@ -61,7 +63,14 @@ class CoswaraTrainer:
 
     def get_dataloaders(self):
         full_dataset = CoswaraDataset(
-                self.data_dir, self.metadata_file, normalization=self.normalization, get_features=True, get_leaf=self.leaf, augmentation=self.augmentation)
+                self.data_dir,
+                self.metadata_file,
+                normalization=self.normalization,
+                get_features=True,
+                get_leaf=self.leaf,
+                augmentation=self.augmentation,
+                energy_filter=self.energy_filter
+                )
         dataframe = full_dataset.dataframe
         minority_class_count = len(dataframe[dataframe['covid_status'] == 1])
         samples_per_epoch = minority_class_count*2

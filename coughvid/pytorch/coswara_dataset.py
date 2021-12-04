@@ -9,7 +9,7 @@ import pydub
 import numpy as np
 import logging
 from coughvid.audio_processing import (
-        normalize_audio, extract_frames, extract_other_features, generate_feature_matrix)
+        normalize_audio, extract_frames, extract_other_features, generate_feature_matrix, energy_filter)
 
 from data_augmentation.data_augmentation import DataAugmentation
 
@@ -27,7 +27,8 @@ class CoswaraDataset(Dataset):
                  sample_rate=44100,
                  frame_length=1024,
                  frames=50,
-                 samples_per_class=None):
+                 samples_per_class=None,
+                 energy_filter=False):
         # define internal variables
         self.labels = ['covid_status']
         self.frame_length = frame_length
@@ -39,6 +40,7 @@ class CoswaraDataset(Dataset):
         self.augmentation = augmentation
         self.samples_per_class = samples_per_class
         self.n_fft = 512
+        self.energy_filter = energy_filter
 
         # load dataframe
         assert os.path.isdir(data_dir),\
@@ -67,6 +69,13 @@ class CoswaraDataset(Dataset):
         # first, normalize audio
         if self.normalization:
             audio = normalize_audio(audio)
+
+        if self.energy_filter:
+            window_seconds = 0.05
+            sampling_rate = 44100  #Hz
+            window = sampling_rate * window_seconds
+            threshold = 0.005
+            audio = energy_filter(audio, window, threshold)
 
         # drop samples too short to analyze
         if len(audio) < self.frame_length:
@@ -103,13 +112,13 @@ class CoswaraDataset(Dataset):
 
         # compute features
         mfcc = librosa.feature.mfcc(
-                frames.flatten(), 
+                frames.flatten(),
                 sr=self.sample_rate,
-                n_mfcc=26, 
-                n_mels=40, 
+                n_mfcc=26,
+                n_mels=40,
                 n_fft=512,
                 hop_length=self.frame_length,
-                power=2, 
+                power=2,
                 center=False,
                 fmax=8192)
         mfcc_delta  = librosa.feature.delta(mfcc)
