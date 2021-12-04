@@ -19,8 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 class CoswaraTrainer:
-    def __init__(self,
-            data_dir, batch_size=1, num_workers=1, model_dir='trained_models', leaf=False, augmentation=False, normalization=True, energy_filter=False):
+    def __init__(self, data_dir, batch_size=1, num_workers=1, model_dir='trained_models', leaf=False, augmentation=False, normalization=True, energy_filter=False, name="coswara_model"):
         self.data_dir = data_dir  # './data/coswara/'
         self.metadata_file = 'filtered_data.csv'
         self.batch_size = batch_size
@@ -30,6 +29,7 @@ class CoswaraTrainer:
         self.augmentation=augmentation
         self.normalization=normalization
         self.energy_filter = energy_filter
+        self.name = name
         os.makedirs(model_dir, exist_ok=True)
 
     def load_model(self, model_type='resnet18',
@@ -183,6 +183,8 @@ class CoswaraTrainer:
         best_model_wts = copy.deepcopy(model.state_dict())
         best_acc = 0.0
 
+        evaluator = Evaluator(model_name=self.name, path_to_logs=self.name)
+
         # create dataframe for storing stats
         csv_df = pd.DataFrame(columns=[
             'Epoch',
@@ -195,6 +197,7 @@ class CoswaraTrainer:
         str_date_time = datetime.now().strftime("%d%m%Y%H%M%S")
 
         for i in range(num_epochs):
+            epoch = i + 1
             # train step
             loss_sum, samples, correct_sum = self.training_step(
                     model, dataloaders['train'],
@@ -204,7 +207,7 @@ class CoswaraTrainer:
             # Print epoch statistics
             epoch_acc = float(correct_sum) / float(samples)
             epoch_loss = float(loss_sum) / float(samples)
-            print("epoch: {} - train loss: {}, train acc: {}".format(
+            logger.debug("epoch: {} - train loss: {}, train acc: {}".format(
                     i + 1, epoch_loss, epoch_acc))
 
             #logging
@@ -214,12 +217,13 @@ class CoswaraTrainer:
 
             # test step
             labels, predictions = self.test_step(model, dataloaders['test'])
-            evaluator = Evaluator(labels, predictions)
-            evaluator.print_report()
             #logging
             csv_df.loc[i,'Epoch'] = i+1
             csv_df.loc[i,'Test Accuracy' ] = epoch_acc
             csv_df.loc[i,'Test Loss' ] = epoch_loss
+
+            evaluator.evaluate_epoch(epoch, labels, predictions, epoch_acc)
+
             # Deep copy the model
             if epoch_acc > best_acc:
                 best_acc = epoch_acc
