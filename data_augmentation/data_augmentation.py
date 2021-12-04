@@ -8,10 +8,10 @@ class DataAugmentation():
 
         self.audio = audio
 
-        # TODO: still need to figure out how to choose the filter requirements.
-        self.fs = 30.0  # sample rate, Hz
-        self.cutoff = 3  # desired cutoff frequency of the filter, Hz (the higher cutoff, the less effects applied for lowpass
-        self.order = 2  # sin wave can be approx represented as quadratic
+        self.fs = 44.1
+        self.lp_cutoff = 3
+        self.hp_cutoff = 2
+        self.order = 2
 
     def apply_gaussian_noise(self):
         # noise = np.random.randn(*features.shape).astype(np.float32)
@@ -28,7 +28,7 @@ class DataAugmentation():
 
     def apply_lp(self):
         nyq = 0.5 * self.fs
-        normal_cutoff = self.cutoff / nyq
+        normal_cutoff = self.lp_cutoff / nyq
         # Get the filter coefficients
         b, a = butter(self.order, normal_cutoff, btype='lowpass', analog=False)
         y = filtfilt(b, a, self.audio)
@@ -36,7 +36,7 @@ class DataAugmentation():
 
     def apply_hp(self):
         nyq = 0.5 * self.fs
-        normal_cutoff = self.cutoff / nyq
+        normal_cutoff = self.hp_cutoff / nyq
         # Get the filter coefficients
         b, a = butter(self.order, normal_cutoff, btype='highpass', analog=False)
         y = filtfilt(b, a, self.audio)

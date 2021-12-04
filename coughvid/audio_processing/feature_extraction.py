@@ -20,7 +20,11 @@ def normalize_audio(audio):
     '''Normalize the audio signal according to the formula in
     https://www.sciencedirect.com/science/article/pii/S0010482521003668?via%3Dihub
     '''
-    return 0.9 * audio / max(abs(np.max(audio)), 1e-6)
+    max_audio = abs(np.max(audio))
+    if max_audio <= 1e-6:
+        return 0.9 * audio
+
+    return 0.9 * audio / max_audio
 
 
 def zcr(frame):
@@ -53,9 +57,6 @@ def extract_frames(valid_samples, num_frames, frame_length, uuid=None):
         frame = valid_samples[int(i):int(i)+frame_length]
 
         if len(frame) < frame_length:
-            print(f'WARNING: Unexpected frame length encountered at {int(i)}'
-                  f' of {len(valid_samples)}: {len(frame)}. '
-                  f'Padding {frame_length-len(frame)} frames.')
 
             frame = np.pad(frame,
                            (0, max(0, frame_length-len(frame))), 'constant')
