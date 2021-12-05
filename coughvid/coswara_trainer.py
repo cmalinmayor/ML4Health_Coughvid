@@ -78,7 +78,9 @@ class CoswaraTrainer:
 
         # split data into training and test samples
         train_indices, test_indices = train_test_split(
-                np.arange(0, len(full_dataset)-1), test_size=0.25)
+                np.arange(0, len(full_dataset)-1),
+                test_size=0.25,
+                random_state=4789)
         labels = list(dataframe['covid_status'])
         train_weights = compute_weights(labels, train_indices)
         train_sampler = SubsetWeightedRandomSampler(
