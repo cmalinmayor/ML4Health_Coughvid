@@ -71,6 +71,16 @@ class CoswaraTrainer:
                 augmentation=self.augmentation,
                 energy_filter=self.energy_filter
                 )
+
+        full_test_dataset = CoswaraDataset(
+                self.data_dir,
+                self.metadata_file,
+                normalization=self.normalization,
+                get_features=True,
+                get_leaf=self.leaf,
+                augmentation=False,
+                energy_filter=self.energy_filter
+        )
         dataframe = full_dataset.dataframe
         minority_class_count = len(dataframe[dataframe['covid_status'] == 1])
         samples_per_epoch = minority_class_count*2
@@ -91,7 +101,7 @@ class CoswaraTrainer:
                                   sampler=train_sampler
                                   )
 
-        test_loader = DataLoader(full_dataset,
+        test_loader = DataLoader(full_test_dataset,
                                  num_workers=self.num_workers,
                                  sampler=SubsetRandomSampler(test_indices)
                                  )
