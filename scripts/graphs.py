@@ -159,39 +159,40 @@ def get_line_6(lines, index):
 
 
 # %%
-filename = '../da_log1_augmentation_result.txt'
+filename_da = '../da_log1_augmentation_result.txt'
 
-df = read_stats_from_log(filename)
+df_da = read_stats_from_log(filename_da)
 
-# %%
-df
+filename_baseline = 'D://ML4Health_Coughvid_log/baseline_stats.csv'
 
+df_baseline = pd.read_csv(filename_baseline)
 
-# %%
-def read_stats_from_csv(filename):
-    return pd.read_csv(filename)
-
-
-# %%
 from bokeh.plotting import figure, show
 from bokeh.models import ColumnDataSource, Range1d
 
-def plot_accuracy(df, title="Coswara Accuracy", max_epoch=100):
-    source = ColumnDataSource(df)
-    p = figure(title=title, x_axis_label='Epoch', y_axis_label='Accuracy')
 
-    p.line(x="epoch", y="train accuracy", source=source, legend_label="train", line_width=2)
-    p.line(x="epoch", y="balanced_test_acc", source=source, legend_label="test", line_width=2, color="red")
+def plot_accuracy(df_da, df_baseline, title="Coswara Accuracy", max_epoch=100):
+    source_da = ColumnDataSource(df_da)
+    source_baseline = ColumnDataSource(df_baseline)
+    p = figure(title=title, x_axis_label='Epoch', y_axis_label='Accuracy', plot_width=700, plot_height=700)
+
+    p.line(x="epoch", y="train_acc", source=source_da, legend_label="augmentation train", line_width=2)
+    p.line(x="epoch", y="test_balanced_acc", source=source_da, legend_label="augmentation test", line_width=2,
+           color='Red')
+
+    p.line(x="epoch", y="train_acc", source=source_baseline, legend_label="baseline train", line_width=2, color='Green')
+    p.line(x="epoch", y="test_balanced_acc", source=source_baseline, legend_label="baseline test", line_width=2,
+           color='Orange')
+
     p.xaxis.axis_label_text_font_size = '14pt'
     p.xaxis.major_label_text_font_size = '14pt'
     p.yaxis.axis_label_text_font_size = '14pt'
     p.yaxis.major_label_text_font_size = '14pt'
-    p.legend.label_text_font_size = '14pt'
+    p.legend.label_text_font_size = '10pt'
     p.title.text_font_size = '16pt'
     p.x_range = Range1d(0, max_epoch)
     p.legend.location = "top_left"
     show(p)
 
-
 # %%
-plot_accuracy(basic_df, title="Baseline Accuracy During Training")
+plot_accuracy(df_da, df_baseline, title="Train Test Accuracy Comparison with Baseline")
