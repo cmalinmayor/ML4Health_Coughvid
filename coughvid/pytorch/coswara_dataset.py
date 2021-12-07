@@ -104,11 +104,11 @@ class CoswaraDataset(Dataset):
         if not self.get_features:
             return audio, labels
 
-        if self.get_leaf:
-            return filename, labels
-
         # extract self.frames number of frames of self.frame_length length
         frames = extract_frames(audio, self.frames, self.frame_length)
+        
+        if self.get_leaf:
+            return frames, labels
 
         # compute features
         mfcc = librosa.feature.mfcc(

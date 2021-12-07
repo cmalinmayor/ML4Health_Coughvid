@@ -13,6 +13,9 @@ import logging
 from sklearn.model_selection import train_test_split
 import copy
 
+from leaf_audio_pytorch import frontend, initializers
+from coughvid.audio_processing import feature_extraction
+
 import wandb
 
 logger = logging.getLogger(__name__)
@@ -53,9 +56,28 @@ class CoswaraTrainer:
             ),
             torch.nn.Sigmoid()
         )
+        
+        class my_leaf(torch.nn.Module):
+            def __init__(self):
+                super(my_leaf, self).__init__()
+                n_filters = 40
+                window_stride = 23.22
+                sample_rate = 44100
+                self.custom_leaf = frontend.Leaf(n_filters=n_filters,
+                                   window_stride=window_stride,
+                                   sample_rate=sample_rate)
+            def forward(self, X):
+                out = self.custom_leaf(X)
+                out = out[None,...].double()
+                return out
+            
 
         model.conv1 = torch.nn.Conv2d(
                 1, 64, kernel_size=7, stride=2, padding=3, bias=True)
+        
+        if self.leaf:
+            model = torch.nn.Sequential(my_leaf(), model)
+            
         optimizer = optim(model.parameters())
         criterion = loss()
         model.double()
@@ -101,8 +123,28 @@ class CoswaraTrainer:
             "test": test_loader
         }
         return dataloaders
+    
+    def leaf_test_step(self, model, dataloader):
+        model.eval()
+        all_labels = []
+        all_predictions = []
+        for j, batch in enumerate(dataloader):
+            X, labels = batch
+            X = X.flatten()
+            X = X[None,None,...].float()
+            
+            all_labels.extend(list(labels.cpu().numpy()))
+            if torch.cuda.is_available():
+                X = X.cuda()
+                labels = labels.cuda()
+            with torch.set_grad_enabled(False):
+                y = model(X)
+                all_predictions.extend(list(y.cpu().numpy()))
+        return all_labels, all_predictions
 
     def test_step(self, model, dataloader):
+        if self.leaf:
+            return self.leaf_test_step(model, dataloader)
         model.eval()
         all_labels = []
         all_predictions = []
@@ -126,6 +168,12 @@ class CoswaraTrainer:
         correct_sum = 0
         for j, batch in enumerate(dataloader):
             X, labels = batch
+            
+            #scripts for leaf
+            if self.leaf:
+                X = X.flatten()
+                X = X[None,None,...].float()
+            
             if torch.cuda.is_available():
                 X = X.cuda()
                 labels = labels.cuda()
@@ -133,7 +181,10 @@ class CoswaraTrainer:
             optimizer.zero_grad()
 
             with torch.set_grad_enabled(True):
-                y = model(X[None, ...].double())
+                if self.leaf:
+                    y = model(X)
+                else:
+                    y = model(X[None, ...].double())
                 loss = criterion(
                     y,
                     labels[None, ...].double()
