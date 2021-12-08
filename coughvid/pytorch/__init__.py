@@ -1,3 +1,4 @@
 from .coughvid_dataset import CoughvidDataset
 from .coswara_dataset import CoswaraDataset
+from .coswara_embedding_dataset import CoswaraEmbeddingDataset
 from .subset_weighted_random_sampler import SubsetWeightedRandomSampler, compute_weights
