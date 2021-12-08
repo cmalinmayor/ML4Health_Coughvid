@@ -6,9 +6,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.13.2
+#       jupytext_version: 1.13.1
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -159,13 +159,6 @@ def get_line_6(lines, index):
 
 
 # %%
-filename_da = '../da_log1_augmentation_result.txt'
-
-df_da = read_stats_from_log(filename_da)
-
-filename_baseline = 'D://ML4Health_Coughvid_log/baseline_stats.csv'
-
-df_baseline = pd.read_csv(filename_baseline)
 
 from bokeh.plotting import figure, show
 from bokeh.models import ColumnDataSource, Range1d
@@ -195,4 +188,104 @@ def plot_accuracy(df_da, df_baseline, title="Coswara Accuracy", max_epoch=100):
     show(p)
 
 # %%
-plot_accuracy(df_da, df_baseline, title="Train Test Accuracy Comparison with Baseline")
+embedding_filenames = ['512_6_1e-5/stats.csv', ]#'1024_6_1e-5/stats.csv', '2048_6_5e-6/stats.csv']
+embedding_labels= ['512', ] # '1024', '2048']
+
+filename_baseline = 'baseline_stats.csv'
+
+df_baseline = pd.read_csv(filename_baseline)
+df_baseline
+
+# %%
+from bokeh.palettes import colorblind
+print(colorblind)
+def plot_embedding_accuracy(filenames, labels, baseline_df,
+                            title="Accuracy of BYOL-A Pre-Trained Embeddings", max_epoch=100): 
+    sources = [ColumnDataSource(pd.read_csv(f)) for f in filenames]
+    source_baseline = ColumnDataSource(df_baseline)
+    p = figure(title=title, x_axis_label='Epoch', y_axis_label='Accuracy', plot_width=700, plot_height=700)
+    
+    colors = colorblind["Colorblind"][7]
+    
+    p.line(x="epoch", y="train_acc", source=source_baseline, legend_label="baseline train",
+           line_width=2, color=colors[0], line_dash='dashed')
+    p.line(x="epoch", y="test_balanced_acc", source=source_baseline, legend_label="baseline test",
+           line_width=2, color=colors[0])
+
+    for index, pair in enumerate(zip(sources, labels)):
+        source, name = pair
+        p.line(x="epoch", y="train_acc", source=source, legend_label=f"{name} train",
+               line_width=2, color=colors[index +1], line_dash='dashed')
+        p.line(x="epoch", y="test_balanced_acc", source=source, legend_label=f"{name} test",
+               line_width=2, color=colors[index+1], )
+    p.xaxis.axis_label_text_font_size = '14pt'
+    p.xaxis.major_label_text_font_size = '14pt'
+    p.yaxis.axis_label_text_font_size = '14pt'
+    p.yaxis.major_label_text_font_size = '14pt'
+    p.legend.label_text_font_size = '10pt'
+    p.title.text_font_size = '16pt'
+    p.x_range = Range1d(0, max_epoch)
+    p.legend.location = "top_left"
+    show(p)
+    
+
+
+# %%
+plot_embedding_accuracy(embedding_filenames, embedding_labels, df_baseline, title="Embedding Accuracy Comparison with Baseline")
+
+# %%
+df_baseline
+
+# %%
+df_aug = read_stats_from_file('../da')
+
+# %%
+f = '512_6_1e-5/90_prc.csv'
+df = pd.read_csv(f)
+
+# %%
+df = df.drop(424)
+
+# %%
+pd.set_option("display.max_rows", None, "display.max_columns", None)
+df
+
+
+# %%
+def plot_prcurve(df, title="Precision Recall Curve", max_epoch=100): 
+    source_baseline = ColumnDataSource(df)
+    p = figure(title=title, x_axis_label='Recall', y_axis_label='Precision', plot_width=700, plot_height=700)
+    
+    colors = ["#191970", "#006400", "#ff0000", "#ffd700"]
+    
+    p.line(x="Recall", y="Precision", source=source_baseline, legend_label="epochX",
+           line_width=2, color=colors[0])
+
+    p.xaxis.axis_label_text_font_size = '14pt'
+    p.xaxis.major_label_text_font_size = '14pt'
+    p.yaxis.axis_label_text_font_size = '14pt'
+    p.yaxis.major_label_text_font_size = '14pt'
+    p.legend.label_text_font_size = '10pt'
+    p.title.text_font_size = '16pt'
+    p.x_range = Range1d(0, 1)
+    p.legend.location = "top_left"
+    show(p)
+    
+
+
+# %%
+
+plot_prcurve(df)
+
+# %%
+import sklearn.metrics
+sklearn.metrics.auc(df['Recall'], df['Precision'])
+
+# %%
+stats_df = pd.read_csv('512_6_1e-5/stats.csv')
+stats_df
+
+# %%
+stats_df[stats_df['test_balanced_acc'] == stats_df['test_balanced_acc'].max()]
+
+# %%
