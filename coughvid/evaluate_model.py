@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 class Evaluator:
-    def __init__(self, path_to_logs=None, model_name='resnet_18', threshold='best'):
+    def __init__(self, path_to_logs=None, model_name='resnet_18', threshold=0.5, compute_best_threshold=False):
         self.path_to_logs = path_to_logs
         self.str_date_time = datetime.now().strftime("%d%m%Y%H%M%S")
         if self.path_to_logs is None:
@@ -21,6 +21,7 @@ class Evaluator:
         self.roc_file = 'roc.csv'
         self.epoch_stats_file = 'stats.csv'
         self.threshold = threshold
+        self.compute_best_threshold = compute_best_threshold
         self.labels = None
         self.predictions = None
         self.f1 = None
@@ -61,7 +62,7 @@ class Evaluator:
         self.train_acc = train_acc
         self.labels = np.array(labels)
         self.predictions = np.array(predictions)
-        if self.threshold == 'best':
+        if self.compute_best_threshold:
             self.threshold, self.f1 = self.get_best_threshold()
         self.test_acc = self.get_accuracy()
         self.test_balanced_acc = self.get_balanced_accuracy()
